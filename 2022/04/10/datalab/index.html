@@ -23,13 +23,13 @@
 <meta property="og:site_name" content="JackieZ&#39;s Blog">
 <meta property="og:description" content="本文介绍CSAPP中datalab各小题的解题步骤 Int and boolean algebra bitXor 12345678910&#x2F;*  * bitXor - x^y using only ~ and &amp;  *   Example: bitXor(4, 5) &#x3D; 1 *   Legal ops: ~ &amp; *   Max ops: 14 *   Rating: 1 *&#x2F;i">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="d:/CSAPP/write-ups/datalab/1.1.png">
+<meta property="og:image" content="http://example.com/.com//CSAPP/write-ups/datalab/1.1.png">
 <meta property="article:published_time" content="2022-04-10T14:10:13.000Z">
 <meta property="article:modified_time" content="2022-07-15T15:56:25.292Z">
 <meta property="article:author" content="JackieZ">
 <meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="d:/CSAPP/write-ups/datalab/1.1.png">
+<meta name="twitter:image" content="http://example.com/.com//CSAPP/write-ups/datalab/1.1.png">
   
   
   <title>CSAPP:datalab详解 - JackieZ&#39;s Blog</title>
@@ -258,17 +258,12 @@ y能够使得结果中x为0，y为1的情况，而x &amp;
 <p><strong>思路:</strong> 直接用1 &lt;&lt; 31即可</p>
 <h4 id="istmax">isTmax</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * isTmax - returns 1 if x is the maximum, two&#x27;s complement number,</span><br><span class="hljs-comment"> *     and 0 otherwise </span><br><span class="hljs-comment"> *   Legal ops: ! ~ &amp; ^ | +</span><br><span class="hljs-comment"> *   Max ops: 10</span><br><span class="hljs-comment"> *   Rating: 1</span><br><span class="hljs-comment"> */</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">isTmax</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>  <span class="hljs-keyword">return</span> !(~(x + <span class="hljs-number">1</span> + x)) &amp; !!(~x);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>题目要求:</strong> 若<span
-class="math inline">\(x=0x80000000u\)</span>则返回1，否则返回0</p>
-<p><strong>思路：</strong> 观察<span
-class="math inline">\(0x80000000\)</span>​u的特点，只有首位为1，且左移一位后就变为0，注意到左移1位后为0除<span
-class="math inline">\(0x80000000\)</span>外只有0，故再排除0即可</p>
+<p><strong>题目要求:</strong> 若<span class="math inline">\(x=0x80000000u\)</span>则返回1，否则返回0</p>
+<p><strong>思路：</strong> 观察<span class="math inline">\(0x80000000\)</span>​u的特点，只有首位为1，且左移一位后就变为0，注意到左移1位后为0除<span class="math inline">\(0x80000000\)</span>外只有0，故再排除0即可</p>
 <h4 id="alloddbits">allOddBits</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* </span><br><span class="hljs-comment"> * allOddBits - return 1 if all odd-numbered bits in word set to 1</span><br><span class="hljs-comment"> *   where bits are numbered from 0 (least significant) to 31 (most significant)</span><br><span class="hljs-comment"> *   Examples allOddBits(0xFFFFFFFD) = 0, allOddBits(0xAAAAAAAA) = 1</span><br><span class="hljs-comment"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span><br><span class="hljs-comment"> *   Max ops: 12</span><br><span class="hljs-comment"> *   Rating: 2</span><br><span class="hljs-comment"> */</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">allOddBits</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>  <span class="hljs-type">int</span> mask = <span class="hljs-number">0xAA</span>+(<span class="hljs-number">0xAA</span>&lt;&lt;<span class="hljs-number">8</span>);<br>  mask=mask+(mask&lt;&lt;<span class="hljs-number">16</span>);<br>  <span class="hljs-keyword">return</span> !((mask&amp;x)^mask);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>题目要求:</strong> 若参数x的奇数位都是1则返回1，否则返回0</p>
-<p><strong>思路:</strong> 先构造一个奇数位全部为1的<span
-class="math inline">\(mask=0xAAAAAAAA\)</span>​​​，然后x与mask做与运算，当且仅当x奇数位均为1时，<span
-class="math inline">\(x \&amp; mask =
+<p><strong>思路:</strong> 先构造一个奇数位全部为1的<span class="math inline">\(mask=0xAAAAAAAA\)</span>​​​，然后x与mask做与运算，当且仅当x奇数位均为1时，<span class="math inline">\(x \&amp; mask =
 mask\)</span>​​​​，所以只有x奇数位均为1时，<span class="math inline">\(x
 \&amp; mask\)</span>​与mask的异或为0​​​，再取反即可完成</p>
 <h4 id="negate">negate</h4>
@@ -279,8 +274,7 @@ mask\)</span>​​​​，所以只有x奇数位均为1时，<span class="math
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* </span><br><span class="hljs-comment"> * isAsciiDigit - return 1 if 0x30 &lt;= x &lt;= 0x39 (ASCII codes for characters &#x27;0&#x27; to &#x27;9&#x27;)</span><br><span class="hljs-comment"> *   Example: isAsciiDigit(0x35) = 1.</span><br><span class="hljs-comment"> *            isAsciiDigit(0x3a) = 0.</span><br><span class="hljs-comment"> *            isAsciiDigit(0x05) = 0.</span><br><span class="hljs-comment"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt; </span><br><span class="hljs-comment"> *   Max ops: 15</span><br><span class="hljs-comment"> *   Rating: 3</span><br><span class="hljs-comment"> */</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">isAsciiDigit</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>  <span class="hljs-keyword">return</span> !((x + (~<span class="hljs-number">0x30</span>) + <span class="hljs-number">1</span>) &gt;&gt; <span class="hljs-number">31</span>) &amp; !((<span class="hljs-number">0x39</span> + (~x)+ <span class="hljs-number">1</span>) &gt;&gt; <span class="hljs-number">31</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>题目要求:</strong>
 若x是处于0-9之间的ASCII码(也就是0x30-0x39)则返回1，否则返回0</p>
-<p><strong>思路:</strong> 由上一轮的取反得到灵感，本题中需要满足<span
-class="math inline">\(x - 0x30 \geq 0 \bigcap 0x39 - x \geq
+<p><strong>思路:</strong> 由上一轮的取反得到灵感，本题中需要满足<span class="math inline">\(x - 0x30 \geq 0 \bigcap 0x39 - x \geq
 0\)</span>​​，​​判断两式首位符号位是否为0即可确定两式均大于等于0</p>
 <h4 id="conditional">conditional</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* </span><br><span class="hljs-comment"> * conditional - same as x ? y : z </span><br><span class="hljs-comment"> *   Example: conditional(2,4,5) = 4</span><br><span class="hljs-comment"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span><br><span class="hljs-comment"> *   Max ops: 16</span><br><span class="hljs-comment"> *   Rating: 3</span><br><span class="hljs-comment"> */</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">conditional</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y, <span class="hljs-type">int</span> z)</span> &#123;<br>  x = !!x;<br>  x = ~x + <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">return</span> (x &amp; y) | (~x &amp; z);<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -293,19 +287,12 @@ x，有<span class="math inline">\(x \; \&amp; \; (-1) = x \; \bigcap \; x
 0\)</span>​​​，所以对x调整，使得x为0的时候​，x可取z，x非0则取y，利用上述性质，先将任意非0的x调整为1，然后取-1，这两部操作对为0值的x则没有变化，然后利用此性质取最后一式即可</p>
 <h4 id="islessorequal">isLessOrEqual</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* </span><br><span class="hljs-comment"> * isLessOrEqual - if x &lt;= y  then return 1, else return 0 </span><br><span class="hljs-comment"> *   Example: isLessOrEqual(4,5) = 1.</span><br><span class="hljs-comment"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span><br><span class="hljs-comment"> *   Max ops: 24</span><br><span class="hljs-comment"> *   Rating: 3</span><br><span class="hljs-comment"> */</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">isLessOrEqual</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span> &#123;<br>  <span class="hljs-type">int</span> b1 = x &gt;&gt; <span class="hljs-number">31</span>,b2 = y &gt;&gt; <span class="hljs-number">31</span>;<br>  x = x + ~(<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">31</span>) + <span class="hljs-number">1</span>;<br>  y = y + ~(<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">31</span>) + <span class="hljs-number">1</span>;<br>  <span class="hljs-type">int</span> NotbitXor = !(b1 ^ b2);<br>  <span class="hljs-comment">//printf(&quot;%d %d\n&quot;,!!(b1 ^ b2),!!(b1 &amp; (!b2)));</span><br>  <span class="hljs-keyword">return</span> (!NotbitXor) &amp; (b1 &gt;&gt; <span class="hljs-number">31</span>) | NotbitXor &amp; (!((y + (~x) + <span class="hljs-number">1</span>)&gt;&gt; <span class="hljs-number">31</span> &amp; <span class="hljs-number">1</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>题目要求:</strong> 给定int参数x，y：若<span
-class="math inline">\(\, x \leq y \,\)</span>​​则返回1，否则返回0</p>
+<p><strong>题目要求:</strong> 给定int参数x，y：若<span class="math inline">\(\, x \leq y \,\)</span>​​则返回1，否则返回0</p>
 <p><strong>思路:</strong> 最朴素的思路是<span class="math inline">\(\, y
 - x \geq 0
-\,\)</span>​​​然后判断结果的符号位是否为0，但是会出现问题在于当x，y均为负数时可能会发生溢出，导致结果出现偏差，所以要对两个参数的首位符号位进行分类讨论：若<span
-class="math inline">\(\, x[31] = 1\,\)</span>​​​且<span
-class="math inline">\(\, y[31] = 0\,\)</span>​​​时可直接判断；若<span
-class="math inline">\(\, x[31] = 1\,\)</span>​​​且<span
-class="math inline">\(\, y[31] =
+\,\)</span>​​​然后判断结果的符号位是否为0，但是会出现问题在于当x，y均为负数时可能会发生溢出，导致结果出现偏差，所以要对两个参数的首位符号位进行分类讨论：若<span class="math inline">\(\, x[31] = 1\,\)</span>​​​且<span class="math inline">\(\, y[31] = 0\,\)</span>​​​时可直接判断；若<span class="math inline">\(\, x[31] = 1\,\)</span>​​​且<span class="math inline">\(\, y[31] =
 1\,\)</span>​​​时，比较剩余31位的大小，有<span class="math inline">\(\,
-y[30:0] \geq x[30:0]\,\)</span>​​​时结果为1；而若<span
-class="math inline">\(\, x[31] = 0\,\)</span>​​​且<span
-class="math inline">\(\, y[31] =
+y[30:0] \geq x[30:0]\,\)</span>​​​时结果为1；而若<span class="math inline">\(\, x[31] = 0\,\)</span>​​​且<span class="math inline">\(\, y[31] =
 0\,\)</span>​​​时，比较剩余31位的大小，有<span class="math inline">\(\,
 y[30:0] \leq
 x[30:0]\,\)</span>​​​​时结果为1，而这两种不同情况可以用同一个表达式判断，这样就在Max
@@ -359,22 +346,19 @@ inf)，则返回原数；若exp=254(2*uf=inf)，则返回NaN代表的值(根据s
 bit，若exp大于31，则int溢出无法表示，故按题目要求返回0x80000000；若exp
 &lt; 0或原数的exp和frac位均为0，则按题目要求返回0；若exp &gt;
 23，先处理frac，将frac右移exp -
-23位(这样可以和后面处理正常位数同时处理)；还剩一种<span
-class="math inline">\(\, 0 \leq exp \leq
+23位(这样可以和后面处理正常位数同时处理)；还剩一种<span class="math inline">\(\, 0 \leq exp \leq
 23\,\)</span>​​的情况，与上一种处理方式相同；最后根据sign
 bit分类讨论后输出即可。</p>
 <h4 id="floatpower2">floatPower2</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* </span><br><span class="hljs-comment"> * floatPower2 - Return bit-level equivalent of the expression 2.0^x</span><br><span class="hljs-comment"> *   (2.0 raised to the power x) for any 32-bit integer x.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> *   The unsigned value that is returned should have the identical bit</span><br><span class="hljs-comment"> *   representation as the single-precision floating-point number 2.0^x.</span><br><span class="hljs-comment"> *   If the result is too small to be represented as a denorm, return</span><br><span class="hljs-comment"> *   0. If too large, return +INF.</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> *   Legal ops: Any integer/unsigned operations incl. ||, &amp;&amp;. Also if, while </span><br><span class="hljs-comment"> *   Max ops: 30 </span><br><span class="hljs-comment"> *   Rating: 4</span><br><span class="hljs-comment"> */</span><br><span class="hljs-type">unsigned</span> <span class="hljs-title function_">floatPower2</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>  <span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">127</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0x7f800000</span>;	<br>  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">-127</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0x0</span>;<br>  <span class="hljs-keyword">else</span><br>    <span class="hljs-keyword">return</span> (x + <span class="hljs-number">127</span>) &lt;&lt; <span class="hljs-number">23</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>题目要求:</strong> 传入一个int参数x(float
-bit表示下的指数值)，返回<span
-class="math inline">\(2^{x}\)</span>​的指数表示​​</p>
+bit表示下的指数值)，返回<span class="math inline">\(2^{x}\)</span>​的指数表示​​</p>
 <p><strong>思路:</strong>
-若x大于127则溢出，返回+inf；若x小于-127，则过小无法表示，故返回0；当<span
-class="math inline">\(-127 &lt; x &lt;
+若x大于127则溢出，返回+inf；若x小于-127，则过小无法表示，故返回0；当<span class="math inline">\(-127 &lt; x &lt;
 127\)</span>​，直接将x+127放入指数为并返回即可</p>
 <h2 id="测试结果">测试结果</h2>
 <figure>
-<img src="D:\CSAPP\write-ups\datalab\1.1.png" srcset="/img/loading.gif" lazyload alt="test" />
+<img src="/.com//CSAPP\write-ups\datalab\1.1.png" srcset="/img/loading.gif" lazyload alt="test">
 <figcaption aria-hidden="true">test</figcaption>
 </figure>
 
