@@ -230,6 +230,196 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/07/19/assembly/" target="_self">
+          汇编语言笔记
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/19/assembly/" target="_self">
+          
+          寄存器 通用寄存器 以16位寄存器为例，我们记为AX[15:0] AX、BX、CX、DX、均可分为高八位[15:8]（AH，BH，CH，DH）和低八位[7:0]（AL、BL、CL、DL） 字在寄存器中的存储 字节：记为byte，一个字节由8bit组成，可以存在8位寄存器中。 字：记为word，一个字由2字节组成，这两个字节记为高位字节和低位字节。 几条汇编指令  mov ax,1
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-19 20:57" pubdate>
+              2022-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/19/vim/" target="_self">
+          Vim笔记
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/19/vim/" target="_self">
+          
+          （肯定会忘所以先总结一下） 几种模式 插入模式(Insert):用i,a,o,I,A,O即可插入 命令模式:用esc后输入加命令即可 可视化模式(Visionary):Ctrl+v即可进入 常用编辑命令 移动一个字符 h、i、j、k分别对应左、下、上、右的操作 删除一个字符 移动到需要删除的地方按x&#x2F;dl即可，几下x即是几个字符 X&#x2F;dh删除光标前一个位置的字符 Undo和R
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-19 20:55" pubdate>
+              2022-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/19/CSAPP/shelllab/" target="_self">
+          CSAPP shelllab总结
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/19/CSAPP/shelllab/" target="_self">
+          
+          书中一些函数的功能 123456789101112131415161718192021222324#include&lt;unistd.h&gt;#include&lt;signal.h&gt;#include&lt;sys&#x2F;types.h&gt;pid_t getpgrp(void);										&#x2F;&#x2F; 返回当前进程的进程组idint setpgid(pid_t pid,pid_t pg
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-19 20:50" pubdate>
+              2022-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/CSAPP/">CSAPP</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CSAPP/">CSAPP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/19/CSAPP/cachelab/" target="_self">
+          CSAPP Cachelab总结
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/19/CSAPP/cachelab/" target="_self">
+          
+          Part A 第一部分是用C语言实现一个Cache模拟器，实现代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-19 20:47" pubdate>
+              2022-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/CSAPP/">CSAPP</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CSAPP/">CSAPP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/07/18/CS229/cs229%20ps2/" target="_self">
           CS229 ps2-solution
         </a>
@@ -371,13 +561,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/04/10/datalab/" target="_self">
-          CSAPP:datalab详解
+        <a href="/2022/04/10/CSAPP/datalab/" target="_self">
+          CSAPP datalab总结
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/04/10/datalab/" target="_self">
+        <a href="/2022/04/10/CSAPP/datalab/" target="_self">
           
           本文介绍CSAPP中datalab各小题的解题步骤 Int and boolean algebra bitXor 12345678910&#x2F;*  * bitXor - x^y using only ~ and &amp;  *   Example: bitXor(4, 5) &#x3D; 1 *   Legal ops: ~ &amp; *   Max ops: 14 *   Rating: 1 *&#x2F;i
         </a>

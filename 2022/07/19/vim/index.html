@@ -13,23 +13,24 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="JackieZ">
+  <meta name="author" content="zya">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2022&#x2F;4&#x2F;10 本站点初步搭建配置完成">
+    <meta name="description" content="（肯定会忘所以先总结一下） 几种模式 插入模式(Insert):用i,a,o,I,A,O即可插入 命令模式:用esc后输入加命令即可 可视化模式(Visionary):Ctrl+v即可进入 常用编辑命令 移动一个字符 h、i、j、k分别对应左、下、上、右的操作 删除一个字符 移动到需要删除的地方按x&#x2F;dl即可，几下x即是几个字符 X&#x2F;dh删除光标前一个位置的字符 Undo和R">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客构建日记">
-<meta property="og:url" content="http://example.com/2022/04/10/log/index.html">
+<meta property="og:title" content="Vim笔记">
+<meta property="og:url" content="http://example.com/2022/07/19/vim/index.html">
 <meta property="og:site_name" content="JackieZ&#39;s Blog">
-<meta property="og:description" content="2022&#x2F;4&#x2F;10 本站点初步搭建配置完成">
+<meta property="og:description" content="（肯定会忘所以先总结一下） 几种模式 插入模式(Insert):用i,a,o,I,A,O即可插入 命令模式:用esc后输入加命令即可 可视化模式(Visionary):Ctrl+v即可进入 常用编辑命令 移动一个字符 h、i、j、k分别对应左、下、上、右的操作 删除一个字符 移动到需要删除的地方按x&#x2F;dl即可，几下x即是几个字符 X&#x2F;dh删除光标前一个位置的字符 Undo和R">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-10T14:13:01.000Z">
-<meta property="article:modified_time" content="2022-04-10T14:15:30.686Z">
+<meta property="article:published_time" content="2022-07-19T12:55:11.357Z">
+<meta property="article:modified_time" content="2022-07-19T12:56:28.607Z">
 <meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>博客构建日记 - JackieZ&#39;s Blog</title>
+  <title>Vim笔记 - JackieZ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -179,7 +180,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="博客构建日记">
+            <span class="h2" id="subtitle" title="Vim笔记">
               
             </span>
 
@@ -189,8 +190,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-04-10 22:13" pubdate>
-        2022年4月10日 晚上
+      <time datetime="2022-07-19 20:55" pubdate>
+        2022年7月19日 晚上
       </time>
     </span>
   
@@ -200,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      20 字
+      1.4k 字
     </span>
   
 
@@ -209,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      12 分钟
     </span>
   
 
@@ -238,17 +239,109 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">博客构建日记</h1>
+            <h1 style="display: none">Vim笔记</h1>
             
             <div class="markdown-body">
-              <h3 id="section">2022/4/10</h3>
-<p>本站点初步搭建配置完成</p>
+              <p>（肯定会忘所以先总结一下）</p>
+<h2 id="几种模式">几种模式</h2>
+<p>插入模式(Insert):用i,a,o,I,A,O即可插入</p>
+<p>命令模式:用esc后输入加命令即可</p>
+<p>可视化模式(Visionary):Ctrl+v即可进入</p>
+<h2 id="常用编辑命令">常用编辑命令</h2>
+<h3 id="移动一个字符">移动一个字符</h3>
+<p>h、i、j、k分别对应左、下、上、右的操作</p>
+<h3 id="删除一个字符">删除一个字符</h3>
+<p>移动到需要删除的地方按x/dl即可，几下x即是几个字符</p>
+<p>X/dh删除光标前一个位置的字符</p>
+<h3 id="undo和redo">Undo和Redo</h3>
+<p>u可直接回到上一个状态；Ctrl+r可回到最新状态</p>
+<h3 id="删除和添加行">删除和添加行</h3>
+<p>向正在编辑的文本输入“dd"就能删除一行，保存在缓冲中，可使用p进行粘贴</p>
+<p>在正常模式下输入o即可在当前光标下添加一行；O则在上一行添加一行</p>
+<p>dw删除一个单词</p>
+<p>d0从光标起删除至行首</p>
+<p>D/d$从光标起删除至行尾</p>
+<p>dd删除整个光标所在行</p>
+<p>dj/dk删除整个光标所在行及上/下一行</p>
+<h3 id="复制和粘贴">复制和粘贴</h3>
+<p>yy将光标行复制到缓冲</p>
+<p>yw从光标位置到词末尾复制</p>
+<p>ykw从光标位置复制k个词</p>
+<p>y0从光标到行首复制</p>
+<p>y$从光标到行尾复制</p>
+<p>kyy复制光标所在行下k行</p>
+<p>yj复制光标行及下一行</p>
+<p>yk复制光标行和上一行</p>
+<p>yG从光标当前位置府治奥文件末尾</p>
+<p>p添加至当前光标/下一个位置</p>
+<p>Ctrl+v选择块进行复制粘贴删除操作</p>
+<h3 id="重复执行">重复执行</h3>
+<p>多次执行相同命令：数字+命令</p>
+<p>eg：3l为向右移动三格；4dd为删除四行；”5iShell<esc>“即输入五遍shell</esc></p>
+<h3 id="保存和终止">保存和终止</h3>
+<p>:w 保存</p>
+<p>:w text.txt 保存为text.txt</p>
+<p>:w &gt;&gt; text.txt 添加到text.txt并保存</p>
+<p>:q 终止编辑器</p>
+<p>ZZ 保存后终止</p>
+<p>:wq! 保存后强制终止</p>
+<p>:e test.txt 调用test.txt文件</p>
+<p>:e 调用当前文件</p>
+<h2 id="高级编辑命令">高级编辑命令</h2>
+<h3 id="移动命令">移动命令</h3>
+<p>使用w命令向右移动一个单词，b向左移动一个单词；此时除字母或数字外的所有字符可视为一个单词</p>
+<p>与此不同的是，W和B命令只能以Space分隔单词</p>
+<p>与其他命令一样，在命令前添加数字就能将命令重复指定次数。</p>
+<p>正常模式中，使用0或^命令移动到行的开始，$移动到行尾</p>
+<p>:set nu或者:set number可用显示行号</p>
+<p>正常模式下输入数字+G移动到指定数字行</p>
+<p>:set nonumber或:set nonu可隐藏行号</p>
+<p>+移动到下一行的第一个字</p>
+<p>-移动到上一行的第一个字</p>
+<p>(移动到上一个语句的第一个字</p>
+<p>)移动到下一个语句的第一个字</p>
+<p>{移动到上一段</p>
+<p>}移动到下一段</p>
+<p>]]移动到下一个节区的开始</p>
+<p>[[移动到上一个节区的开始] 标签文件关键字</p>
+<p>Ctrl-x + Ctrl-k 字典查找</p>
+<p>Ctrl-x + Ctrl-l 整行补全</p>
+<p>Ctrl-x + Ctrl-f 文件名补全</p>
+<p>Ctrl-x + Ctrl-o 全能补全</p>
+<h2 id="环境设置参数">环境设置参数</h2>
+<p>:set nu/nonu 设置/取消行号</p>
+<p>:set hlsearch/nohlsearch 是否将查找的字符串高亮</p>
+<p>:set autoindent/noautoindent 是否自动缩进</p>
+<p>:set backup 是否自动保存备份文件</p>
+<p>:set ruler 显示/不显示状态栏说明</p>
+<p>:set showmode 是否要显示--INSERT--这样的左下角状态栏</p>
+<p>:set backspace==(012)
+当设为2时，可删除任意值；设为1时，仅可删除刚刚输入的字符，而无法删除原本就存在的字符；设为0时无法用backspace</p>
+<p>:set all 显示目前所有对环境参数设置值</p>
+<p>:set
+显示与系统默认值不同的设置参数，一般来说就是你有自动变动过的设置参数</p>
+<p>:syntax on/off 是否依据程序相关语法显示不同颜色</p>
+<p>:set bg=dark/light 可用以显示不同的颜色色调</p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
                 
               </div>
               
@@ -263,9 +356,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/11/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/chap2/">
+                      <a href="/2022/07/19/assembly/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Chap2 灰度变换与空间滤波</span>
+                        <span class="hidden-mobile">汇编语言笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -273,8 +366,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/10/CSAPP/datalab/">
-                        <span class="hidden-mobile">CSAPP datalab总结</span>
+                      <a href="/2022/07/19/CSAPP/shelllab/">
+                        <span class="hidden-mobile">CSAPP shelllab总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
