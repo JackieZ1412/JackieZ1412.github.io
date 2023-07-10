@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="马尔可夫过程需要一些随机过程前置知识，即马尔可夫性，马尔可夫链，状态转移矩阵等，较为简略在此不过多详述，百度即可 马尔可夫奖励过程 马尔可夫奖励过程是马尔可夫链+奖励函数。状态及状态转移无变化；奖励函数是一个期望，表示当我i们到达某一个状态时可以获得多少的奖励 回报和价值函数 这里定义：范围是指一个回合的长度(每个回合最大的时间步数)，它是由有限个步数决定的；回报是指把奖励进行折扣后所获得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="马尔可夫决策过程">
+<meta property="og:url" content="http://example.com/2022/08/01/machine%20learning/mdp/mdp/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:description" content="马尔可夫过程需要一些随机过程前置知识，即马尔可夫性，马尔可夫链，状态转移矩阵等，较为简略在此不过多详述，百度即可 马尔可夫奖励过程 马尔可夫奖励过程是马尔可夫链+奖励函数。状态及状态转移无变化；奖励函数是一个期望，表示当我i们到达某一个状态时可以获得多少的奖励 回报和价值函数 这里定义：范围是指一个回合的长度(每个回合最大的时间步数)，它是由有限个步数决定的；回报是指把奖励进行折扣后所获得">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-01T11:40:17.000Z">
+<meta property="article:modified_time" content="2022-08-01T11:46:18.696Z">
+<meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="machine learning">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>马尔可夫决策过程 - JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="马尔可夫决策过程">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-01 19:40" pubdate>
+        2022年8月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      59 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">马尔可夫决策过程</h1>
+            
+            <div class="markdown-body">
+              <p>马尔可夫过程需要一些随机过程前置知识，即马尔可夫性，马尔可夫链，状态转移矩阵等，较为简略在此不过多详述，百度即可</p>
+<h2 id="马尔可夫奖励过程">马尔可夫奖励过程</h2>
+<p><strong>马尔可夫奖励过程</strong>是马尔可夫链+奖励函数。状态及状态转移无变化；奖励函数是一个期望，表示当我i们到达某一个状态时可以获得多少的奖励</p>
+<h3 id="回报和价值函数">回报和价值函数</h3>
+<p>这里定义：<strong>范围</strong>是指一个回合的长度(每个回合最大的时间步数)，它是由有限个步数决定的；<strong>回报</strong>是指把奖励进行折扣后所获得的奖励。</p>
+<p>汇报可以定义为奖励的逐步叠加，即： <span class="math display">\[
+G_t = r_{t + 1} + \gamma r_{t + 2} +\gamma^2 r_{t + 3} + ...+\gamma^{T -
+t - 1}r_T
+\]</span> 这里有一个折扣因子<span class="math inline">\(\gamma\)</span>，越往后得到的奖励，折扣越多；说明我们更希望得到现有的奖励，对未来的奖励要打折扣。</p>
+<p>当我们定义了回报，就可以定义状态的价值了，即<strong>状态价值函数</strong>。对马尔可夫奖励过程，状态价值函数被定义成回报的期望：
+<span class="math display">\[
+\begin{align*}
+V^t(s) &amp;= E[G_t\;|\;s_t = s] \\
+&amp;= E[r_{t + 1} + \gamma r_{t + 2} +\gamma^2 r_{t + 3} +
+...+\gamma^{T - t - 1}r_T \; | \; s_t = s]
+\end{align*}
+\]</span> 这个期望的意义是：从当前这个状态开始，可能获得多大的价值。</p>
+<p><strong>设置折扣因子的原因</strong>：</p>
+<ul>
+<li>有些马尔可夫过程是存在环的，它会带来无穷奖励，而这正是我们想避免的</li>
+<li>我们并不能保证模型是完美模拟环境的，所以对未来评估要打折扣(类似于防止过拟合)</li>
+<li>如果奖励是有实际价值的，我们可能希望立刻获得奖励，而不是后面再得到奖励(对未来奖励的折扣因子可以按需求进行调整)</li>
+</ul>
+<p>在计算一个状态的价值函数时，我们可以通过计算所有轨迹的期望来算出当前状态的价值(蒙特卡洛方法)，而还有一种方法是通过下文介绍的贝尔曼方程进行计算</p>
+<h3 id="贝尔曼方程">贝尔曼方程</h3>
+<p><strong>贝尔曼方程</strong>： <span class="math display">\[
+V(s) = R(s) \;+\;\gamma\sum_{s&#39; \in S}p(s&#39;|\,s)V(s&#39;)
+\]</span> 等式右侧第一项为即时奖励，第二项为未来奖励的折扣总和</p>
+<p>这里我们详细解释第二项：</p>
+<ul>
+<li><span class="math inline">\(p(s&#39;|\,s)\)</span>是指从当前状态转移到未来状态的概率</li>
+<li><span class="math inline">\(V(s&#39;)\)</span>代表的是未来某一个价值的状态</li>
+</ul>
+<p>这样通过求和相当于求出了在这个状态跳往其他状态的价值期望，再乘折扣因子即可</p>
+<p>我们可以把贝尔曼方程写为矩阵形式并直接求解： <span class="math display">\[
+\begin{align*}
+V &amp;= R \, + \,\gamma PV \\
+(I - \gamma P)V &amp;= R \\
+V &amp;= (I - \gamma P)^{-1}R
+\end{align*}
+\]</span> 这样我们直接得到了<span class="math inline">\(V\)</span>的解析解，我们可以直接进行计算，但当状态过多时不便于求解(计算开销过大)，所以只适用于少量状态的马尔可夫奖励过程</p>
+<p>贝尔曼方程的推导： <span class="math display">\[
+\begin{align*}
+V^t(s) &amp;= E[G_t\;|\;s_t = s] \\
+&amp;= E[r_{t + 1} + \gamma r_{t + 2} +\gamma^2 r_{t + 3} + ...\; | \;
+s_t = s] \\
+&amp;= R(s) + \gamma E[r_{t + 1} + \gamma r_{t + 2} +\gamma^2 r_{t + 3}
++ ...\; | \; s_t = s] \\
+&amp;= R(s) + \gamma E[G_{t + 1} | s_t = s]
+\end{align*}
+\]</span></p>
+<h2 id="马尔可夫决策过程">马尔可夫决策过程</h2>
+<p>相对于马尔可夫奖励过程，马尔可夫决策过程多了决策，其他定义类似。此外状态转移也多一个条件：<span class="math inline">\(p(s_{t +
+1}=s&#39;\,|\,s_t=s\,,\,a_t)\)</span>；未来的状态不仅依赖于当前点状态，也依赖于在当前状态智能体采取的动作，马尔可夫决策过程满足条件：
+<span class="math display">\[
+p(s_{t + 1}\,|\,s_t,a_t) = p(s_{t + 1}\,|\,h_t,a_t)
+\]</span> 对于奖励函数，它也多了一个当前动作，变成了<span class="math inline">\(R(s_t = s,a_t = a) = E[r_t\,|\,s_t = s,a_t =
+a]\)</span>。当前状态以及采取的动作会决定智能体在当前可能得到的奖励的多少</p>
+<h3 id="马尔可夫决策过程中的策略">马尔可夫决策过程中的策略</h3>
+<p>策略定义了在某一个状态应该采取什么样的动作。知道当前状态后，我们可以把当前状态带入策略函数来得到一个概率：
+<span class="math display">\[
+\pi(a\;|\;s) = p(a_t = a\,|\,s_t = s)
+\]</span>
+概率代表在所有可能的动作中怎样采取行动。另外策略也可能时确定的，它有可能直接输出一个值，或者直接告诉我们当前应该采取怎么样的动作，而不是一个动作的概率</p>
+<p>已知马尔可夫决策过程和策略<span class="math inline">\(\pi\)</span>，我们可以把马尔可夫决策过程转换成马尔可夫奖励过程。在马尔可夫决策过程中，状态转移函数<span class="math inline">\(p(s&#39;|s,a)\)</span>基于它当前的状态以及它当前的动作。因为我们现在已知策略函数，也就是已知在每一个状态下可能采取的动作的概率，所以我们就可以直接把动作进行加和，去掉<span class="math inline">\(a\)</span>，这样我们就可u得到对于马尔可夫奖励过程的转移，这里就没有动作，即
+<span class="math display">\[
+p_{\pi}(s&#39;\,|\,s) = \sum_{a \in A}\pi(a\,|\,s)p(s&#39;|s,a)
+\]</span>
+对于奖励函数，我们也可以把动作去掉，这样就会得到类似于马尔可夫奖励过程的奖励函数：
+<span class="math display">\[
+R_{\pi}(s) = \sum_{a \in A}\pi(a\,|\,s)R(s,a)
+\]</span></p>
+<h3 id="马尔可夫决策过程与马尔可夫奖励过程的区别">马尔可夫决策过程与马尔可夫奖励过程的区别</h3>
+<ul>
+<li>马尔可夫奖励过程：从一个状态跳转到另一个状态时，只需要考虑转移概率即可</li>
+<li>马尔可夫决策过程：从一个状态跳转到另一个状态时，需要先考虑策略得到决策a，再通过决策a转移到新状态s</li>
+</ul>
+<h3 id="马尔可夫决策过程的状态函数">马尔可夫决策过程的状态函数</h3>
+<p>马尔可夫决策过程中的价值函数可类似于马尔可夫奖励过程来定义： <span class="math display">\[
+V_{\pi} = E_{\pi}[G_t\,|\,s_t = s]
+\]</span> 其中的期望基于我们采取的策略<span class="math inline">\(\pi\)</span>，当策略决定后，我们通过对策略进行采样来得到一个期望，计算出它的价值函数</p>
+<p>这里我们引入一个<strong>Q函数</strong>，Q函数也被称为<strong>动作价值函数</strong>。Q函数定义的时在某一个状态采取某一个动作，有可能得到的回报的一个期望，即：
+<span class="math display">\[
+Q_\pi(s,a) = E_\pi[G_t\,|\,s_t = s,a_t = a]
+\]</span>
+这里的期望也是基于策略函数的。所以我们就需要对策略函数进行一个加和并得到它的价值，对Q函数的中的动作进行加和就得到价值函数：
+<span class="math display">\[
+V_\pi(s) = \sum_{a \in A}\pi(a\,|\,s)Q_\pi(s,a)
+\]</span></p>
+<h3 id="贝尔曼期望方程">贝尔曼期望方程</h3>
+<p>我们可以将状态价值函数和Q函数拆解成两个部分：即时奖励和后续状态的折扣价值。通过对状态价值函数进行分解，我们就可以得到一个类似于之前马尔可夫奖励过程的贝尔曼方程——<strong>贝尔曼期望方程</strong>
+<span class="math display">\[
+V_{\pi}(s) = E_{\pi}[r_{t + 1} + \gamma V_{\pi}(s_{t + 1})\,|\,s_t=s]
+\]</span> 对于Q函数，我们也可以做类似的分解，得到Q函数的贝尔曼期望方程：
+<span class="math display">\[
+Q_{\pi}(s,a) = E_{\pi}[r_{t + 1} + \gamma Q_{\pi}(s_{t + 1},a_{t +
+1})\,|\,s_t = s,a_t = a]
+\]</span> 贝尔曼方程定义了当前状态和未来状态之间的关联</p>
+<p>我们进一步分解期望方程，有： <span class="math display">\[
+V_{\pi}(s) = \sum_{a \in A} \pi(a\,|\,s)(R(s,a) + \gamma \sum_{s&#39;
+\in S}p(s&#39;\,|\,s,a)V_{\pi}(s&#39;))
+\]</span> 上式代表当前状态价值和未来状态价值之间的关联</p>
+<p>于是我们可以得到Q函数的表达： <span class="math display">\[
+Q_{\pi}(s,a) = R(s,a) + \gamma\sum_{s&#39;\in S}p(s&#39;\,|\,s,a)\sum_{a
+\in A}\pi(a&#39;\,|\,s&#39;)Q_{\pi}(s&#39;,a&#39;)
+\]</span> 同样的，上式代表当前时刻的Q函数和未来时刻的Q函数之间的关联</p>
+<p>上两式也是贝尔曼期望方程的另一种表示形式</p>
+<h3 id="策略评估">策略评估</h3>
+<p>已知马尔可夫决策过程以及要采取的策略<span class="math inline">\(\pi\)</span>，计算价值函数<span class="math inline">\(V_\pi(s)\)</span>的过程就是<strong>策略评估</strong>，策略评估有时也被称为<strong>(价值)预测</strong>，也就是预测我们当前采取的策略最终会产生多少价值。</p>
+<h3 id="预测和控制">预测和控制</h3>
+<p>预测和控制是马尔可夫决策过程的核心问题</p>
+<ul>
+<li>预测(评估一个给定的策略)的输入是马尔可夫决策过程&lt;<span class="math inline">\(S,A,P,R,\gamma\)</span>&gt;和策略<span class="math inline">\(\pi\)</span>，输出是价值函数<span class="math inline">\(V_{\pi}\)</span>。预测是指给定一个马尔科夫决策过程和一个策略，计算它的价值函数，也就是每个状态的价值</li>
+<li>控制(搜索最佳策略))的输入是马尔可夫决策过程&lt;<span class="math inline">\(S,A,P,R,\gamma\)</span>&gt;，输出是最佳价值函数<span class="math inline">\(V^*\)</span>和最佳策略<span class="math inline">\(\pi^*\)</span>，控制就是我们去寻找一个最佳的策略，然后同时输出它的最佳价值函数以及最佳策略</li>
+</ul>
+<p>这两个问题都可以通过动态规划的方法来解决，需要强调的是，这两者的区别在于，预测问题是给定一个策略，我们要确定它的价值函数。而控制问题是在没有策略的前提下，我们要确定最佳的价值函数以及对应的决策方案。实际上，这两者是递进的关系，我们通过解决预测问题，进而解决控制问题</p>
+<h3 id="动态规划">动态规划</h3>
+<p>动态规划适合解决具有最优子结构和重叠子问题两个性质的问题。最优子结构意味着问题可以拆分成一个个小问题，通过解决这些小问题来得到原问题的答案，即最优解。重叠子问题意味着，子问题出现多次，并且子问题的解决方案能够被重复使用，我们可以保存子问题的首次计算结果，在再次需要时直接使用</p>
+<p>马尔可夫决策过程满足动态规划的要求，在贝尔曼方程中我们可以把它分解成递归的结构。当我们把它分解成递归的结构的时候，如果子问题的子状态能够得到一个值，那么它的未来状态因为与子状态是直接相关的，我们也可以将其推算出来。价值函数可以存储并重用子问题的最佳的解。动态规划应用于马尔可夫决策过程的规划问题而不是学习问题，我们必须对环境是完全已知的，才能做动态规划，也就是要知道状态转移概率和对应的奖励。是用动态规划完成预测问题和控制问题的求解，是解决马尔可夫决策过程预测问题和控制问题的非常有效的方式</p>
+<h3 id="使用动态规划进行策略评估">使用动态规划进行策略评估</h3>
+<p>策略评估就是给定马尔可夫决策过程和策略，评估我们可以获得多少价值，即对于当前策略，我们可以得到多大的价值。我们可以直接把<strong>贝尔曼期望备份</strong>变成迭代的过程，反复迭代直到收敛。这个过程可以看作<strong>同步备份</strong>的过程</p>
+<p>同步备份和异步备份：</p>
+<ul>
+<li>同步备份是指每一次的迭代都会完全更新所有的状态，这对于程序资源的需求特别大</li>
+<li>异步备份就是通过某种方式，使得每一次迭代不需要更新所有的状态，因为事实上也不是所有状态都需要更新</li>
+</ul>
+<p><span class="math display">\[
+V_{t + 1}(s) = \sum_{a \in A}\pi(a\,|\,s)(R(s,a) + \gamma \sum_{s&#39;
+\in S}p(s&#39;|s,a)V_t(s&#39;))
+\]</span></p>
+<p>上式说明求解<span class="math inline">\(V_\pi(s)\)</span>的过程可以进行动态规划，可以对每个<span class="math inline">\(V_t(s)\)</span>进行求解，反复迭代直到价值函数的值收敛。由于给定了策略函数，我们可以将它简化为马尔科夫奖励过程的形式，即把策略去掉：
+<span class="math display">\[
+V_{t + 1}(s) = R_{\pi}(s) + \gamma p_{\pi}(s&#39;\,|\,s)V_{t}(s&#39;)
+\]</span>
+这样迭代的式子中就只有价值函数和状态转移函数了。通过该式我们也可以得到每个状态的价值，因为在马尔可夫奖励/决策过程中，价值函数包含的变量都只与状态有关。它表示智能体进入某一个状态，未来可能得到多大的价值</p>
+<h3 id="马尔可夫决策过程控制">马尔可夫决策过程控制</h3>
+<p>策略评估是指给定马尔可夫决策过程和策略，估算价值函数的值。如果我们只有马尔可夫决策过程，那么如何寻找最佳策略从而得到<strong>最佳价值函数</strong>呢？</p>
+<p>最佳函数的数学定义为： <span class="math display">\[
+V^*(s) = \mathop{max}_\pi\; V_{\pi}(s)
+\]</span>
+最佳函数是指，我们搜索一种策略让每个状态的价值最大，在这种情况下我们得到的策略就是最佳策略：
+<span class="math display">\[
+\pi^*(s) = arg \,\mathop{max}_{\pi}\,V_\pi(s)
+\]</span>
+最佳策略使得每个状态的价值都得到最大值。所以我们如果可以得到一个最佳价值函数，就可以认为某一个马尔可夫决策过程环境可解。在这种情况下，最佳函数是一致的，环境中可达到的上限的值是一致的，但这里可能有多个最佳策略，多个最佳策略能够取得相同的最佳价值。</p>
+<p>当取得最佳价值函数后，我们可以通过对Q函数最大化的方式来得到最佳策略：当Q函数取得最大值时，令<span class="math inline">\(\pi^*(a \,|\, s) = 1\)</span>，否则为0</p>
+<p>当Q函数收敛后，因为Q函数时关于状态与动作的函数，所以如果在某个状态采取某个动作可以使Q函数最大化，那么这个动作就是最佳动作。如果我们能优化出一个Q函数，就可以直接在Q函数中取一个让Q函数值最大化的动作的值，就可以提取出最佳策略。</p>
+<p>对于一个事先定好的马尔可夫决策过程，当智能体采取最佳策略的时候，最佳策略一般都是确定的，而且是稳定的(它不会随着时间的变化而变化)。但最佳策略不一定是唯一的，多种动作可能会取得相同的价值</p>
+<p>我们可以通过策略迭代和价值迭代来解决马尔可夫决策过程的控制问题</p>
+<h3 id="策略迭代">策略迭代</h3>
+<p>策略迭代由两部分构成：策略评估和策略改进。第一步为策略评估，当前我们在优化策略<span class="math inline">\(\pi\)</span>，在优化过程中得到一个最新的策略。我们先保证这个策略不变，然后估计它的价值，即给定当前的策略函数来估计状态价值函数。第二步为策略改进，得到状态价值函数后，我们可以进一步推算出它的Q函数，得到Q函数后，直接对Q函数最大化，通过对Q函数做一个贪心的搜索来进一步改进策略。这两个步骤一直在迭代进行。</p>
+<p>我们看策略改进的方法：得到状态价值函数后，我们就可以通过奖励函数以及状态转移函数来计算Q函数：
+<span class="math display">\[
+Q_{\pi_i}(s,a) = R(s,a) + \gamma \sum_{s&#39; \in S}
+p(s&#39;\;|\;s,a)V_{\pi_i}(s&#39;)
+\]</span>
+对每个状态，策略改进会得到它的新一轮的策略，我们取使它得到Q函数最大值的动作：
+<span class="math display">\[
+\pi_{i + 1}(s) = arg\,\mathop{max}_a\;Q_{\pi_i}(s,a)
+\]</span></p>
+<h4 id="贝尔曼最优方程">贝尔曼最优方程</h4>
+<p>当我们一直采取argmax的时候，会得到一个单调的递增。通过采取贪心操作，我们就会得到更好或不变的策略，而不会使价值函数变差，所以当改进停止后，我们就会得到一个最佳策略。当改进停止后，我们取让Q函数值最大化的动作，Q函数就会直接变成价值函数，即
+<span class="math display">\[
+Q_{\pi}(s,\pi&#39;(s)) = \mathop{max}_{a \in A}\,Q_{\pi}(s,a) =
+Q_{\pi}(s,\pi(s)) = V_{\pi}(s)
+\]</span> 我们得到<strong>贝尔曼最优方程</strong>： <span class="math display">\[
+V_{\pi}(s) = \mathop{max}_{a \in A}\,Q_{\pi}(s,a)
+\]</span>
+贝尔曼最优方程表明：最佳策略下的一个状态的价值必须等于在这个状态下采取最好动作得到的回报的期望</p>
+<p>当马尔可夫决策过程满足贝尔曼最优方程时，整个马尔可夫决策过程已经达到最佳状态。只有当整个状态已经收敛后，我们得到最佳价值函数后，贝尔曼最优方程才会被满足。满足贝尔曼最优方程后，我们可以采用最大化操作：
+<span class="math display">\[
+V^*(s) = \mathop{max}_a \,Q^*(s,a)
+\]</span>
+当我们取让Q函数值最大化的动作时，对应的值就是当前状态的最佳的价值函数的值</p>
+<h3 id="价值迭代">价值迭代</h3>
+<h4 id="最优性原理">最优性原理</h4>
+<p><strong>最优性原理定理</strong>：一个策略<span class="math inline">\(\pi(s|a)\)</span>在状态s达到了最优价值，当且仅当对于任何能够从s到达的s'都已达到了最优价值</p>
+<h4 id="确认性价值迭代">确认性价值迭代</h4>
+<p>如果我们知道子问题<span class="math inline">\(V^*(s&#39;)\)</span>的最优解，就可以通过价值迭代来得到最优的<span class="math inline">\(V^*(s)\)</span>的解，价值迭代就是把贝尔曼最优方程当成一个更新规则来进行：
+<span class="math display">\[
+V(s) \leftarrow \mathop{max}_{a \in A}(R(s,a) + \gamma \sum_{s&#39; \in
+S}p(s&#39;\,|\,s,a)V(s&#39;))
+\]</span> 为了得到最佳的<span class="math inline">\(V^*\)</span>，对于每个状态的<span class="math inline">\(V\)</span>，我们直接通过贝尔曼最优方程进行迭代，迭代多次后价值函数就会收敛。这种价值迭代算法也被称为确认性价值迭代</p>
+<h4 id="价值迭代算法">价值迭代算法</h4>
+<p>价值迭代的算法过程如下：</p>
+<ol type="1">
+<li><p>初始化：令<span class="math inline">\(k =
+1\)</span>，对于所有的状态<span class="math inline">\(s\)</span>，<span class="math inline">\(V_0(s) = 0\)</span></p></li>
+<li><p>对于<span class="math inline">\(k = 1\)</span>，<span class="math inline">\(H\)</span>(迭代次数)</p>
+<div class="code-wrapper"><pre><code class="hljs">     对所有的状态$s$</code></pre></div>
+<p><span class="math display">\[
+\begin{align*}
+Q_{k + 1}(s,a) &amp;= R(s,a) + \gamma \sum_{s&#39; \in
+S}\,p(s&#39;\,|\,s,a)V_k(s&#39;) \\
+V_{k + 1}(s) &amp;= \mathop{max}_a \,Q_{k + 1}(s,a)\\
+k &amp;\leftarrow k + 1
+\end{align*}
+\]</span></p></li>
+<li><p>在迭代后提取最优策略</p></li>
+</ol>
+<p><span class="math display">\[
+\pi(s) = arg\,\mathop{max}_{a}\,R(s,a) + \gamma \sum_{s&#39; \in
+S}\,p(s&#39;\,|\,s&#39;,a)V_{k + 1}(s&#39;)
+\]</span></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/">machine learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/notes/">notes</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/02/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/chap2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Chap2 复变数函数</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/19/assembly/">
+                        <span class="hidden-mobile">汇编语言笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

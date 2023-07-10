@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="复变数函数 定义：设\(E\)是复平面上的一个点集，若对于\(E\)中每一个点\(z\)，按一定规律有一个复数\(w\)与之对应，则称在\(E\)上定义了一个复单值函数，记作\(w &#x3D; f(z)\; (z \in E)\)；如果对于自变量\(z\)的一个值，按规律对应的\(w\)不止一个，则称\(w &#x3D; f(z)\)为多值函数 定义：设\(w &#x3D; f(z)\)，是集合\(E\)上的单值函数，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chap2 复变数函数">
+<meta property="og:url" content="http://example.com/2022/08/02/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/chap2/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:description" content="复变数函数 定义：设\(E\)是复平面上的一个点集，若对于\(E\)中每一个点\(z\)，按一定规律有一个复数\(w\)与之对应，则称在\(E\)上定义了一个复单值函数，记作\(w &#x3D; f(z)\; (z \in E)\)；如果对于自变量\(z\)的一个值，按规律对应的\(w\)不止一个，则称\(w &#x3D; f(z)\)为多值函数 定义：设\(w &#x3D; f(z)\)，是集合\(E\)上的单值函数，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-02T04:47:06.000Z">
+<meta property="article:modified_time" content="2022-08-08T12:47:39.459Z">
+<meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="复变函数">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Chap2 复变数函数 - JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Chap2 复变数函数">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-02 12:47" pubdate>
+        2022年8月2日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Chap2 复变数函数</h1>
+            
+            <div class="markdown-body">
+              <h2 id="复变数函数">复变数函数</h2>
+<p><strong>定义</strong>：设<span class="math inline">\(E\)</span>是复平面上的一个点集，若对于<span class="math inline">\(E\)</span>中每一个点<span class="math inline">\(z\)</span>，按一定规律有一个复数<span class="math inline">\(w\)</span>与之对应，则称在<span class="math inline">\(E\)</span>上定义了一个复单值函数，记作<span class="math inline">\(w = f(z)\; (z \in E)\)</span>；如果对于自变量<span class="math inline">\(z\)</span>的一个值，按规律对应的<span class="math inline">\(w\)</span>不止一个，则称<span class="math inline">\(w = f(z)\)</span>为多值函数</p>
+<p><strong>定义</strong>：设<span class="math inline">\(w =
+f(z)\)</span>，是集合<span class="math inline">\(E\)</span>上的单值函数，如果对于<span class="math inline">\(E\)</span>中的任意两个不同点<span class="math inline">\(z_1\)</span>和<span class="math inline">\(z_2\)</span>，它们在(函数值)集合<span class="math inline">\(E&#39;\)</span>中对应的点<span class="math inline">\(w_1 = f(z_1)\)</span>及<span class="math inline">\(w_2 = f(z_2)\)</span>，则称<span class="math inline">\(w = f(z)\)</span>是集<span class="math inline">\(E\)</span>中的一个一一映射.</p>
+<h2 id="函数的极限与连续性">函数的极限与连续性</h2>
+<p><strong>定义</strong>：设函数<span class="math inline">\(w =
+f(z)\)</span>在点<span class="math inline">\(z_0\)</span>的某个去心邻域<span class="math inline">\(0 &lt; |z - z_0| &lt;
+\rho\)</span>内有定义，而且实极限： <span class="math display">\[
+\mathop{lim}_{z\rightarrow z_0}\;|\;f(z) - w_0\;| = 0
+\]</span> 就称当<span class="math inline">\(z\)</span>趋于<span class="math inline">\(z_0\)</span>时 <span class="math inline">\(f(z)\)</span> 的极限值为 <span class="math inline">\(w_0\)</span> ，记作 <span class="math display">\[
+\mathop{lim}_{z\rightarrow z_0}\,f(z) = w_0
+\]</span> 这个定义在几何上意味着：当变点进入<span class="math inline">\(z_0\)</span>的一个充分小的<span class="math inline">\(\delta\)</span>邻域hi时，它们的像点就落入一个<span class="math inline">\(w_0\)</span>的一个给定的<span class="math inline">\(\epsilon\)</span>邻域</p>
+<p><strong>定义</strong>：如果等式 <span class="math display">\[
+\mathop{lim}_{z\rightarrow z_0}\,f(z) = f(z_0)
+\]</span> 成立，就称函数<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z_0\)</span>连续.如果<span class="math inline">\(f(z)\)</span>在区域<span class="math inline">\(D\)</span>中的每个点都连续，就称<span class="math inline">\(f(z)\)</span>在区域<span class="math inline">\(D\)</span>中连续</p>
+<p><strong>定理</strong>：函数<span class="math inline">\(f(z) = u(x,y)
++ iv(x,y)\)</span>在点<span class="math inline">\(z_0 = x_0 +
+iy_0\)</span>处连续的充要条件时<span class="math inline">\(u(x,y)\)</span>和<span class="math inline">\(v(x,y)\)</span>作为二元函数在<span class="math inline">\((x_0,y_0)\)</span>处连续</p>
+<h2 id="导数和解析函数">导数和解析函数</h2>
+<p>复变函数的导数的概念从形式上看与实变函数的导数概念完全相同</p>
+<p><strong>定义</strong>：设<span class="math inline">\(w =
+f(z)\)</span>在点<span class="math inline">\(z\)</span>的某个邻域<span class="math inline">\(U\)</span>内有定义，<span class="math inline">\(z
+\,+\, \Delta z \in U\)</span>.如果极限 <span class="math display">\[
+\mathop{lim}_{\Delta z \rightarrow 0}\;\frac{f(z + \Delta z) -
+f(z)}{\Delta z}
+\]</span> 存在，就称函数<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z\)</span>可微，而且这个极限称为<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z\)</span>的导数或微商，记为<span class="math inline">\(f&#39;(z)\)</span>，<span class="math inline">\(\frac{df}{dz}\)</span>或<span class="math inline">\(\frac{dw}{dz}\)</span>，即： <span class="math display">\[
+f&#39;(z) = \mathop{lim}_{\Delta z\rightarrow 0}\frac{f(z + \Delta z) -
+f(z)}{\Delta z}
+\]</span> 设<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z\)</span>可微： <span class="math display">\[
+a = \frac{f(z + \Delta z) - f(z)}{\Delta z} - f&#39;(z)
+\]</span> 则有： <span class="math display">\[
+\mathop{lim}_{\Delta z\rightarrow 0} a = 0
+\]</span> <strong>定义</strong>：如果<span class="math inline">\(f(z)\)</span>在区域<span class="math inline">\(D\)</span>内的每一点可微，则称<span class="math inline">\(f(z)\)</span>在<span class="math inline">\(D\)</span>内解析，或者说<span class="math inline">\(f(z)\)</span>是<span class="math inline">\(D\)</span>内的解析函数；如果<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z_0\)</span>的某一邻域内可微，则称<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z_0\)</span>解析；如果<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z_0\)</span>不解析，则<span class="math inline">\(z_0\)</span>称为<span class="math inline">\(f(z)\)</span>的奇点</p>
+<p>由定义可见，函数的解析性概念是和一个区域联系在一起的.即使是说到<span class="math inline">\(f(z)\)</span>在点<span class="math inline">\(z_0\)</span>解析，也是指它在<span class="math inline">\(z_0\)</span>的某个邻域内解析，由于区域是开集，所以函数在区域内解析和函数在区域内每一点解析的说法是等价的.解析函数是复变函数中一类加了很强条件的函数，它有许多完美的性质.</p>
+<p><strong>复变函数的求导法则与实变函数相同</strong></p>
+<h2 id="柯西-黎曼方程">柯西-黎曼方程</h2>
+<p><strong>定理</strong>：函数<span class="math inline">\(f(z) = u(x,y)
++ iv(x,y)\)</span>在点<span class="math inline">\(z = x +
+iy\)</span>可微的充要条件是：</p>
+<ol type="1">
+<li>二元函数<span class="math inline">\(u(x,y),v(x,y)\)</span>在点<span class="math inline">\((x,y)\)</span>可微</li>
+<li><span class="math inline">\(u(x,y)\)</span>及<span class="math inline">\(v(x,y)\)</span>在点<span class="math inline">\((x,y)\)</span>满足柯西-黎曼方程(简称C-R方程)</li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}
+\frac{\partial u}{\partial x} &amp;= \frac{\partial v}{\partial y} \\
+\frac{\partial u}{\partial y} &amp;= -\frac{\partial v}{\partial x}
+\end{align*}
+\]</span></p>
+<p><strong>定理</strong>：函数<span class="math inline">\(f(z) = u(x,y)
++ iv(x,y)\)</span>在区域<span class="math inline">\(D\)</span>内可微(即在<span class="math inline">\(D\)</span>内解析)的充要条件：</p>
+<ol type="1">
+<li>二元函数<span class="math inline">\(u(x,y)\)</span>及<span class="math inline">\(v(x,y)\)</span>在<span class="math inline">\(D\)</span>内可微</li>
+<li><span class="math inline">\(u(x,y)\)</span>及<span class="math inline">\(v(x,y)\)</span>在<span class="math inline">\(D\)</span>内处处满足C-R方程</li>
+</ol>
+<p>求导数的时候可直接用： <span class="math display">\[
+\begin{align*}
+f&#39;(z) &amp;= \frac{\partial u}{\partial x} + i\frac{\partial
+v}{\partial x}
+\end{align*}
+\]</span></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/math/">math</a>
+                    
+                      <a class="hover-with-bg" href="/categories/math/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">复变函数</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">复变函数</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/07/machine%20learning/EMAlgorithm/EMAlgorithm/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">EM算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/01/machine%20learning/mdp/mdp/">
+                        <span class="hidden-mobile">马尔可夫决策过程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

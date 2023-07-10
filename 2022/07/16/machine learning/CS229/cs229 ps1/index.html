@@ -1,0 +1,712 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Problem 1 Sub Problem (a) For the loss function \(J(\theta)\)，the element of the hessian matrix is： \[ H_{ij} &#x3D; \frac{ \partial^{2} J(\theta)}{\partial \theta_i\partial \theta_j} \] So for the s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS229 ps1-solution">
+<meta property="og:url" content="http://example.com/2022/07/16/machine%20learning/CS229/cs229%20ps1/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:description" content="Problem 1 Sub Problem (a) For the loss function \(J(\theta)\)，the element of the hessian matrix is： \[ H_{ij} &#x3D; \frac{ \partial^{2} J(\theta)}{\partial \theta_i\partial \theta_j} \] So for the s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-15T16:03:20.000Z">
+<meta property="article:modified_time" content="2022-08-01T11:44:04.666Z">
+<meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="CS229">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>CS229 ps1-solution - JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CS229 ps1-solution">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-16 00:03" pubdate>
+        2022年7月16日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      18k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      147 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CS229 ps1-solution</h1>
+            
+            <div class="markdown-body">
+              <h2 id="problem-1">Problem 1</h2>
+<h3 id="sub-problem-a">Sub Problem (a)</h3>
+<p>For the loss function <span class="math inline">\(J(\theta)\)</span>，the element of the hessian
+matrix is： <span class="math display">\[
+H_{ij} = \frac{ \partial^{2} J(\theta)}{\partial \theta_i\partial
+\theta_j}
+\]</span> So for the specific loss function <span class="math inline">\(J(\theta)\)</span> <span class="math display">\[
+J(\theta) = -\frac{1}{m}\sum_{i =
+1}^{m}y^{(i)}log(h_{\theta}(x^{(i)}))\, + \,  (1 - y^{(i)})log(1 -
+h_{\theta}(x^{(i)}))
+\]</span> We got: <span class="math display">\[
+\frac{\partial {J(\theta)}}{\partial \theta_i} = -\frac{1}{m}\sum_{k =
+1}^{m}(x_{i}^{(k)}y^{(k)} - x_{i}^{(k)}g(\theta^{T}x))
+\]</span> So the second derivative is: <span class="math display">\[
+\frac{\partial ^{2}J(\theta)}{\partial {\theta_i}{\theta_j}} = \sum_{k =
+1}^{m}\frac{x_{i}^{(k)}x_{j}^{(k)}}{m}g(\theta^{T}x)(1 - g(\theta^{T}x))
+\]</span> We want to prove <span class="math inline">\(z^{T}Hz \geq
+0\)</span>： <span class="math display">\[
+z^THz = \sum_{k = 1}^{m}\sum_{i = 1}^{m}\sum_{j =
+1}^{m}\frac{z_{i}x_{i}^{(k)}x_{j}^{(k)}z_{j}}{m}g(\theta^{T}x)(1 -
+g(\theta^{T}x))
+\]</span> Consider the sum, we got: <span class="math display">\[
+\sum_{i = 1}^{m}\sum_{j = 1}^{m}z_{i}x_{i}x_{j}z_{j} = (xz)^{T}(xz) \geq
+0
+\]</span> the resident part <span class="math inline">\(0 &lt;
+g(\theta^Tx) &lt; 1\)</span>，so we finish the proof.</p>
+<h3 id="sub-problem-b">Sub Problem (b)</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> util<br><br><span class="hljs-keyword">from</span> linear_model <span class="hljs-keyword">import</span> LinearModel<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">train_path, eval_path, pred_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Problem 1(b): Logistic regression with Newton&#x27;s Method.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        train_path: Path to CSV file containing dataset for training.</span><br><span class="hljs-string">        eval_path: Path to CSV file containing dataset for evaluation.</span><br><span class="hljs-string">        pred_path: Path to save predictions.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    x_train, y_train = util.load_dataset(train_path, add_intercept=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># *** START CODE HERE ***</span><br>    model = LogisticRegression(eps=<span class="hljs-number">1e-5</span>)<br>    model.fit(x_train, y_train)<br>    util.plot(x_train, y_train,model.theta,<span class="hljs-string">&#x27;output/p01b.png&#x27;</span>)<br>    x_out,y_out = util.load_dataset(eval_path, add_intercept=<span class="hljs-literal">True</span>)<br>    prediction = model.predict(x_eval)<br>    np.savetxt(pred_path,prediction &gt; <span class="hljs-number">0.5</span>, fmt=<span class="hljs-string">&#x27;%d&#x27;</span>)<br>    <span class="hljs-comment"># *** END CODE HERE ***</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LogisticRegression</span>(<span class="hljs-title class_ inherited__">LinearModel</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Logistic regression with Newton&#x27;s Method as the solver.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Example usage:</span><br><span class="hljs-string">        &gt; clf = LogisticRegression()</span><br><span class="hljs-string">        &gt; clf.fit(x_train, y_train)</span><br><span class="hljs-string">        &gt; clf.predict(x_eval)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self, x, y</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Run Newton&#x27;s Method to minimize J(theta) for logistic regression.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            x: Training example inputs. Shape (m, n).</span><br><span class="hljs-string">            y: Training example labels. Shape (m,).</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        m,n = x.shape<br>        self.theta = np.zeros(n)<br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            old_theta = np.copy(self.theta)<br>            hx = <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + np.exp(-x.dot(self.theta)))<br>            hessian = (x.T * hx * (<span class="hljs-number">1</span> - hx)).dot(x) / m<br>            gradient_J_theta = x.T.dot(hx - y) / m<br>            self.theta = self.theta - np.linalg.inv(hessian).dot(gradient_J_theta)<br>            <span class="hljs-keyword">if</span> np.linalg.norm(self.theta - old_theta,<span class="hljs-built_in">ord</span>=<span class="hljs-number">1</span>) &lt; self.eps:<br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-comment"># *** END CODE HERE ***</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Make a prediction given new inputs x.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            x: Inputs of shape (m, n).</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Returns:</span><br><span class="hljs-string">            Outputs of shape (m,).</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / <span class="hljs-number">1</span> + np.exp(-x.dot(self.theta))<br>        <span class="hljs-comment"># *** END CODE HERE ***</span><br><br></code></pre></td></tr></table></figure>
+<p>Use Newton's method to solve the problem.</p>
+<h3 id="sub-problem-c">Sub Problem (c)</h3>
+<p>First，by bayes formula： <span class="math display">\[
+p(y = 1 | x) = \frac{p(x|y = 1)p(y = 1)}{p(x|y = 1)p(y = 1) + p(x|y =
+0)p(y = 0)}
+\]</span> Bring in the possibility of the defination，we got： <span class="math display">\[
+p(y = 1|x) = \frac{1}{1 + \frac{1 - \phi}{\phi}exp\{\frac{1}{2}((x -
+\mu_0)^{T}\sum^{-1}(x - \mu_0) - (x - \mu_1)^{T}\sum^{-1}(x - \mu_1))\}}
+\]</span> Simplify the formula： <span class="math display">\[
+p(y = 1|x) = \frac{1}{1 + exp\{\sum^{-1}(\mu_0 - \mu_1)^Tx +
+\frac{1}{2}((\mu_0 + \mu_1)^T\sum^{-1}(\mu_1 - \mu_0)) - log(\frac{1 -
+\phi}{\phi})\}}
+\]</span> So，define the parameter like this： <span class="math display">\[
+\theta = (\mu_0 - \mu_1)(\sum)^{-1}
+\]</span> <strong>note that</strong> <span class="math inline">\(\sum^{-1}\)</span> <strong>is a symmetric
+matrix</strong> <span class="math display">\[
+\theta_0 = \frac{1}{2}((\mu_0 + \mu_1)^T\sum^{-1}(\mu_1 - \mu_0)) -
+log(\frac{1 - \phi}{\phi})
+\]</span> So <span class="math inline">\(p(y = 1|x)\)</span> can be
+represented by the formula as the question displays.</p>
+<h3 id="sub-problem-d">Sub Problem (d)</h3>
+<p><span class="math display">\[
+\ell(\phi,\mu_0,\mu_1,\sum) = log\prod_{i =
+1}^{m}p(x^{(i)},y^{(i)};\phi,\mu_0,\mu_1,\sum)\\= log\prod_{i =
+1}^{m}p(x^{(i)}|y^{(i)};\mu_0,\mu_1,\sum)p(y^{(i)};\phi) \\
+= \sum_{i = 1}^{m}(log(p(x^{(i)}|y^{(i)};\mu_0,\mu_1,\sum)) +
+log(p(y^{(i)};\phi)))
+\]</span></p>
+<p>We calculate the <span class="math inline">\(\phi\)</span> first：
+<span class="math display">\[
+\frac{\partial  \ell}{\partial  \phi} = \sum_{i =
+1}^{m}y^{(i)}\frac{\partial  log\phi}{\partial \phi} + (1 -
+y^{(i)})\frac{\partial  log(1 - \phi)}{\partial  \phi} \\
+= \sum_{i = 1}^{m}\frac{y^{(i)}}{\phi} - \frac{y - \phi}{1 - \phi}\\
+= \frac{(\sum_{i = 1}^{m}y^{(i)}) - m\phi}{\phi(1 - \phi)} = 0
+\]</span> So make the derivative maximum，we have to let： <span class="math display">\[
+\phi = \frac{\sum_{i = 1}^{m}I(y^{(i)} = 1)}{m}
+\]</span> Then we calculate <span class="math inline">\(\mu_0,\mu_1,\sum\)</span>： <span class="math display">\[
+\frac{\partial  \ell}{\partial  \mu_0} =
+\frac{\partial  \ell}{\partial  \mu}\frac{\partial  \mu}{\partial  \mu_0}\\
+= -\frac{1}{2\sqrt{2\pi}}\sum_{i = 1}^{m}\frac{\partial  (x^{(i)} -
+\mu)^T\sum^{-1}(x^{(i)} -
+\mu)}{\partial  \mu}\frac{\partial  \mu}{\partial  \mu_0}\\
+= -\frac{\sum^{-1}}{\sqrt{2\pi}}\sum_{i = 1}^{m} I(y^{(i)} = 0)(x^{(i)}
+- \mu_0) \\
+= -\frac{1}{\sqrt{2\pi}}\sum_{i = 1}^{m}I(y^{(i)} = 0)(x^{(i)} - \mu_0)
+= 0
+\]</span> So，we can calculate <span class="math inline">\(\mu_0\)</span>： <span class="math display">\[
+\mu_0 = \frac{\sum_{i = 1}^{m}I(y^{(i)} = 0)x^{(i)}}{\sum_{i =
+1}^{m}I(y^{(i)} = 0)}
+\]</span> For the same derivation，we know that <span class="math inline">\(\mu_1\)</span> is： <span class="math display">\[
+\mu_1 = \frac{\sum_{i = 1}^{m}I(y^{(i)} = 1)x^{(i)}}{\sum_{i =
+1}^{m}I(y^{(i)} = 1)}
+\]</span> At last，we calculate the covariance matrix <span class="math inline">\(\sum^{-1}\)</span> <span class="math display">\[
+\frac{\partial  \ell}{\partial  \sum} = \frac{m}{2}(\sum)^{-1} +
+\frac{1}{2}(\sum)^{-1}(\sum_{i = 1}^{m}(x - \mu_{y^{(i)}})(x -
+\mu_{y^{(i)}})^T)(\sum)^{-1} = 0
+\]</span> So the covariance matrix is： <span class="math display">\[
+\sum = \frac{\sum_{i = 1}^{m}(x - \mu_{y^{(i)}})(x -
+\mu_{y^{(i)}})^T}{m}
+\]</span> Proof finished.</p>
+<h3 id="sub-problem-e">Sub Problem (e)</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> statistics <span class="hljs-keyword">import</span> covariance<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> util<br><br><span class="hljs-keyword">from</span> linear_model <span class="hljs-keyword">import</span> LinearModel<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">train_path, eval_path, pred_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Problem 1(e): Gaussian discriminant analysis (GDA)</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        train_path: Path to CSV file containing dataset for training.</span><br><span class="hljs-string">        eval_path: Path to CSV file containing dataset for evaluation.</span><br><span class="hljs-string">        pred_path: Path to save predictions.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Load dataset</span><br>    x_train, y_train = util.load_dataset(train_path, add_intercept=<span class="hljs-literal">False</span>)<br><br>    <span class="hljs-comment"># *** START CODE HERE ***</span><br>    model = GDA()<br>    model.fit(x_train, y_train)<br>    util.plot(x_train, y_train,model.theta,<span class="hljs-string">&#x27;output/p01e.png&#x27;</span>)<br>    x_out,y_out = util.load_dataset(eval_path, add_intercept=<span class="hljs-literal">True</span>)<br>    prediction = model.predict(x_out)<br>    np.savetxt(pred_path,prediction &gt; <span class="hljs-number">0.5</span>, fmt=<span class="hljs-string">&#x27;%d&#x27;</span>)<br>    <span class="hljs-comment"># *** END CODE HERE ***</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GDA</span>(<span class="hljs-title class_ inherited__">LinearModel</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Gaussian Discriminant Analysis.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Example usage:</span><br><span class="hljs-string">        &gt; clf = GDA()</span><br><span class="hljs-string">        &gt; clf.fit(x_train, y_train)</span><br><span class="hljs-string">        &gt; clf.predict(x_eval)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self, x, y</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Fit a GDA model to training set given by x and y.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            x: Training example inputs. Shape (m, n).</span><br><span class="hljs-string">            y: Training example labels. Shape (m,).</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Returns:</span><br><span class="hljs-string">            theta: GDA model parameters.</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        m,n = x.shape<br>        phi = <span class="hljs-built_in">sum</span>(y == <span class="hljs-number">1</span>) / m<br>        u0 = np.<span class="hljs-built_in">sum</span>(x[y == <span class="hljs-number">0</span>],axis=<span class="hljs-number">0</span>) / (m - <span class="hljs-built_in">sum</span>(y == <span class="hljs-number">1</span>))<br>        u1 = np.<span class="hljs-built_in">sum</span>(x[y == <span class="hljs-number">1</span>],axis=<span class="hljs-number">0</span>) / <span class="hljs-built_in">sum</span>(y == <span class="hljs-number">1</span>)<br>        Covariance = ((x[y == <span class="hljs-number">0</span>] - u0).T.dot(x[y == <span class="hljs-number">0</span>] - u0) + (x[y == <span class="hljs-number">1</span>] - u1).T.dot(x[y == <span class="hljs-number">1</span>] - u1))<br>        inverse_covariance = np.linalg.inv(Covariance)<br>        self.theta = np.zeros(n + <span class="hljs-number">1</span>)<br>        self.theta[<span class="hljs-number">0</span>] = (u0 + u1).dot(inverse_covariance).dot(u0 - u1) * <span class="hljs-number">0.5</span><br>        self.theta[<span class="hljs-number">1</span>:] =  inverse_covariance.dot(u1 - u0)<br>        <span class="hljs-keyword">return</span> self.theta<br><br>        <span class="hljs-comment"># *** END CODE HERE ***</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Make a prediction given new inputs x.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            x: Inputs of shape (m, n).</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Returns:</span><br><span class="hljs-string">            Outputs of shape (m,).</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + np.exp(-x.dot(self.theta)))<br>        <span class="hljs-comment"># *** END CODE HERE</span><br><br></code></pre></td></tr></table></figure>
+<p>Use GDA parameter analysis to write the fit function, and it is the
+same with the linear analysis in sub problem (b) in main.</p>
+<p><strong>Remember to give theta the value by rules from the
+notes</strong></p>
+<h3 id="sub-problem-f">Sub Problem (f)</h3>
+<h3 id="sub-problem-g">Sub Problem (g)</h3>
+<h3 id="sub-problem-h">Sub Problem (h)</h3>
+<h2 id="problem-2">Problem 2</h2>
+<h3 id="sub-problem-a-1">Sub Problem (a)</h3>
+<p><span class="math display">\[
+p(y = 1,t = 1,x) = p(y = 1|t = 1,x)p(t = 1 | x)p(x)\\
+= p(t = 1|y = 1)p(y = 1|x)p(x)
+\]</span></p>
+<p>From the known factors： <span class="math display">\[
+p(t = 1|y = 1) = 1\\
+p(y = 1|t = 1,x) = p(y = 1|t = 1)
+\]</span> So we can derivate： <span class="math display">\[
+\frac{p(t = 1|x)}{p(y = 1|x)} = \frac{p(t = 1|y = 1,x)}{p(y = 1|t =
+1,x)} = \frac{1}{p(y = 1 | t = 1)}
+\]</span> From the problem we know it is a constant.</p>
+<h3 id="sub-problem-b-1">Sub Problem (b)</h3>
+<p>From sub problem (a) we know： <span class="math display">\[
+h(x) \approx p(y = 1|x) \approx \alpha
+\]</span></p>
+<h3 id="sub-problem-cde">Sub Problem (c,d,e)</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> util<br><br><span class="hljs-keyword">from</span> p01b_logreg <span class="hljs-keyword">import</span> LogisticRegression<br><br><span class="hljs-comment"># Character to replace with sub-problem letter in plot_path/pred_path</span><br>WILDCARD = <span class="hljs-string">&#x27;X&#x27;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">train_path, valid_path, test_path, pred_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Problem 2: Logistic regression for incomplete, positive-only labels.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Run under the following conditions:</span><br><span class="hljs-string">        1. on y-labels,</span><br><span class="hljs-string">        2. on l-labels,</span><br><span class="hljs-string">        3. on l-labels with correction factor alpha.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        train_path: Path to CSV file containing training set.</span><br><span class="hljs-string">        valid_path: Path to CSV file containing validation set.</span><br><span class="hljs-string">        test_path: Path to CSV file containing test set.</span><br><span class="hljs-string">        pred_path: Path to save predictions.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    pred_path_c = pred_path.replace(WILDCARD, <span class="hljs-string">&#x27;c&#x27;</span>)<br>    pred_path_d = pred_path.replace(WILDCARD, <span class="hljs-string">&#x27;d&#x27;</span>)<br>    pred_path_e = pred_path.replace(WILDCARD, <span class="hljs-string">&#x27;e&#x27;</span>)<br><br>    <span class="hljs-comment"># *** START CODE HERE ***</span><br>    <span class="hljs-comment">#######################################################################################</span><br>    <span class="hljs-comment"># Problem (c)</span><br>    x_train, t_train = util.load_dataset(train_path, label_col=<span class="hljs-string">&#x27;t&#x27;</span>, add_intercept=<span class="hljs-literal">True</span>)<br>    x_test, t_test = util.load_dataset(test_path, label_col=<span class="hljs-string">&#x27;t&#x27;</span>, add_intercept=<span class="hljs-literal">True</span>)<br><br>    model_t = LogisticRegression()<br>    model_t.fit(x_train, t_train)<br><br>    util.plot(x_test, t_test, model_t.theta, <span class="hljs-string">&#x27;output/p02c.png&#x27;</span>)<br><br>    t_pred_c = model_t.predict(x_test)<br>    np.savetxt(pred_path_c, t_pred_c &gt; <span class="hljs-number">0.5</span>, fmt=<span class="hljs-string">&#x27;%d&#x27;</span>)<br>    <span class="hljs-comment">#######################################################################################</span><br>    <span class="hljs-comment"># Problem (d)</span><br>    x_train, y_train = util.load_dataset(train_path, label_col=<span class="hljs-string">&#x27;y&#x27;</span>, add_intercept=<span class="hljs-literal">True</span>)<br>    x_test, y_test = util.load_dataset(test_path, label_col=<span class="hljs-string">&#x27;y&#x27;</span>, add_intercept=<span class="hljs-literal">True</span>)<br><br>    model_y = LogisticRegression()<br>    model_y.fit(x_train, y_train)<br><br>    util.plot(x_test, y_test, model_y.theta, <span class="hljs-string">&#x27;output/p02d.png&#x27;</span>)<br><br>    y_pred = model_y.predict(x_test)<br>    np.savetxt(pred_path_d, y_pred &gt; <span class="hljs-number">0.5</span>, fmt=<span class="hljs-string">&#x27;%d&#x27;</span>)<br>    <span class="hljs-comment">#######################################################################################  </span><br>    <span class="hljs-comment"># Problem (e)</span><br>    x_valid, y_valid = util.load_dataset(valid_path, label_col=<span class="hljs-string">&#x27;y&#x27;</span>, add_intercept=<span class="hljs-literal">True</span>)<br><br>    alpha = np.mean(model_y.predict(x_valid))<br><br>    correction = <span class="hljs-number">1</span> + np.log(<span class="hljs-number">2</span> / alpha - <span class="hljs-number">1</span>) / model_y.theta[<span class="hljs-number">0</span>]<br>    util.plot(x_test, t_test, model_y.theta, <span class="hljs-string">&#x27;output/p02e.png&#x27;</span>, correction)<br><br>    t_pred_e = y_pred / alpha<br>    np.savetxt(pred_path_e, t_pred_e &gt; <span class="hljs-number">0.5</span>, fmt=<span class="hljs-string">&#x27;%d&#x27;</span>)<br>    <span class="hljs-comment">#######################################################################################</span><br>    <span class="hljs-comment"># *** END CODER HERE</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="problem-3">Problem 3</h2>
+<h3 id="sub-problem-a-2">Sub Problem (a)</h3>
+<p>Poisson distribution can be written as： <span class="math display">\[
+p(y;\lambda) = \frac{1}{y!}exp\{ylog\lambda - \lambda\}
+\]</span> For the parameters in exponential family： <span class="math display">\[
+b(y) = \frac{1}{y!}\\
+\eta = log\lambda\\
+T(y) = y \\
+\alpha(\eta) = \exp\{\eta\}
+\]</span> Proof finished.</p>
+<h3 id="sub-problem-b-2">Sub Problem (b)</h3>
+<p><span class="math display">\[
+h_{\theta}(x) = \lambda = exp\{\theta^Tx\}
+\]</span></p>
+<h3 id="sub-problem-c-1">Sub Problem (c)</h3>
+<p><span class="math display">\[
+log\,p(y^{(i)}|x^{(i)};\theta) =
+log\,\frac{1}{y^{(i)}!}exp\{\theta^Tx^{(i)}y^{(i)} -
+exp\{\theta^Tx^{(i)}\}\} \\
+\]</span></p>
+<p>So we take the derivative of <span class="math inline">\(\theta_j\)</span>： <span class="math display">\[
+\frac{\partial  log\,p(y^{(i)}|x^{(i)};\theta)}{\partial  \theta_j} =
+x_{j}^{(i)}y^{(i)} - x_{j}^{(i)}exp\{\theta^Tx^{(i)}\}
+\]</span> The adjustment to the <span class="math inline">\(\theta_j\)</span> is： <span class="math display">\[
+\theta_j = \theta_j + \alpha(x_{j}^{(i)}y^{(i)} -
+x_{j}^{(i)}exp\{\theta^Tx^{(i)}\})
+\]</span></p>
+<h3 id="sub-problem-d-1">Sub Problem (d)</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> util<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> linear_model <span class="hljs-keyword">import</span> LinearModel<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">lr, train_path, eval_path, pred_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Problem 3(d): Poisson regression with gradient ascent.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        lr: Learning rate for gradient ascent.</span><br><span class="hljs-string">        train_path: Path to CSV file containing dataset for training.</span><br><span class="hljs-string">        eval_path: Path to CSV file containing dataset for evaluation.</span><br><span class="hljs-string">        pred_path: Path to save predictions.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Load training set</span><br>    x_train, y_train = util.load_dataset(train_path, add_intercept=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># *** START CODE HERE ***</span><br>    model = PoissonRegression(step_size=lr,eps=<span class="hljs-number">1e-5</span>)<br>    model.fit(x_train, y_train)<br>    x_out,y_out = util.load_dataset(eval_path, add_intercept=<span class="hljs-literal">True</span>)<br>    prediction = model.predict(x_out)<br>    np.savetxt(pred_path,prediction &gt; <span class="hljs-number">0.5</span>, fmt=<span class="hljs-string">&#x27;%d&#x27;</span>)<br>    plt.figure()<br>    plt.plot(y_out,prediction,<span class="hljs-string">&#x27;bx&#x27;</span>)<br>    plt.xlabel(<span class="hljs-string">&#x27;True data&#x27;</span>)<br>    plt.ylabel(<span class="hljs-string">&#x27;Predict data&#x27;</span>)<br>    plt.savefig(<span class="hljs-string">&#x27;p03d.png&#x27;</span>)<br>    <span class="hljs-comment"># *** END CODE HERE ***</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">PoissonRegression</span>(<span class="hljs-title class_ inherited__">LinearModel</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Poisson Regression.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Example usage:</span><br><span class="hljs-string">        &gt; clf = PoissonRegression(step_size=lr)</span><br><span class="hljs-string">        &gt; clf.fit(x_train, y_train)</span><br><span class="hljs-string">        &gt; clf.predict(x_eval)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self, x, y</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Run gradient ascent to maximize likelihood for Poisson regression.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            x: Training example inputs. Shape (m, n).</span><br><span class="hljs-string">            y: Training example labels. Shape (m,).</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        m,n = x.shape<br>        self.theta = np.zeros(n)<br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            theta = np.copy(self.theta)<br>            self.theta += self.step_size * (x.T.dot(y) - x.T.dot(np.exp(x.dot(self.theta))))<br>            <span class="hljs-keyword">if</span> np.linalg.norm(self.theta - theta,<span class="hljs-built_in">ord</span>=<span class="hljs-number">1</span>) &lt; self.eps:<br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-comment"># *** END CODE HERE ***</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Make a prediction given inputs x.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            x: Inputs of shape (m, n).</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Returns:</span><br><span class="hljs-string">            Floating-point prediction for each input, shape (m,).</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        <span class="hljs-keyword">return</span> np.exp(x.dot(self.theta))<br>        <span class="hljs-comment"># *** END CODE HERE ***</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="problem-4">Problem 4</h2>
+<h3 id="sub-problem-a-3">Sub Problem (a)</h3>
+<p>Start with the hint： <span class="math display">\[
+\frac{\partial }{\partial  \eta} \int p(y;\eta)dy = \int \frac{\partial
+}{\partial  \eta}p(y;\eta)dy = 0\\
+\int \frac{\partial }{\partial  \eta}p(y;\eta)dy = \int b(y)(T(y) -
+\frac{\partial  \alpha(\eta)}{\partial  \eta})exp\{\eta^TT(y) -
+\alpha(\eta)\} \\
+= \int (T(y) -
+\frac{\partial  \alpha(\eta)}{\partial  \eta})p(y;\eta)dy\\
+T(y) = y \\
+\int yp(y;\eta)dy = \frac{\partial  \alpha(\eta)}{\partial  \eta}\int
+p(y;\eta)dy = \frac{\partial  \alpha(\eta)}{\partial  \eta}\\
+E(Y|X;\eta) = E(Y;\eta) = \frac{\partial  \alpha(\eta)}{\partial  \eta}
+\]</span> Proof finished.</p>
+<h3 id="sub-problem-b-3">Sub Problem (b)</h3>
+<p>From the hint in sub problem (a) and the sub problem (a) itself，we
+can derivate： <span class="math display">\[
+\frac{\partial }{\partial  \eta}\int yp(y;\eta)dy = \frac{\partial
+^2}{\partial  \eta^2}\alpha(\eta) \\
+\frac{\partial }{\partial  \eta}\int yp(y;\eta)dy = \int \frac{\partial
+}{\partial  \eta}(yp(y;\eta))dy \\
+= \int y(y\, -
+\,\frac{\partial  \alpha(\eta)}{\partial  \eta})p(y;\eta)dy \\
+= E(Y^2;\eta) - (E(Y;\eta))^2 \\
+= \frac{\partial ^2}{\partial  \eta^2}\alpha(\eta)
+\]</span> So the variance is： <span class="math display">\[
+Var(Y|X;\eta) = Var(Y;\eta) = E(Y^2;\eta) - (E(Y;\eta))^2
+= \frac{\partial ^2}{\partial  \eta^2}\alpha(\eta)
+\]</span></p>
+<h3 id="sub-problem-c-2">Sub Problem (c)</h3>
+<p><span class="math display">\[
+\ell(\theta) = -\sum_{i = 1}^{m}log(p(y^{(i)}|x^{(i)};\theta)) \\
+= -\sum_{i = 1}^{m}(log(b(y)\, + \,(\eta^TT(y) \, - \,\alpha(\eta)))
+\]</span></p>
+<p>So the derivative is： <span class="math display">\[
+\frac{\partial  \ell (\theta)}{\partial  \theta_j} = \sum_{i =
+1}^{m}x_{j}^{(i)}\frac{\partial  \alpha(\theta^Tx)}{\partial  \theta_j}
+- x_j^{(i)}y^{(i)}
+\]</span> The positive definiteness has been proved before, so we don't
+prove again.</p>
+<h2 id="problem-5">Problem 5</h2>
+<h3 id="sub-problem-a-4">Sub Problem (a)</h3>
+<h4 id="problem-i">problem i</h4>
+<p>Vectorize the <span class="math inline">\(X,Y,\theta\)</span>，and we
+define the weight matrix： <span class="math display">\[
+W_{ij} = \frac{1}{2}w^{(i)} \;(i = j)\\
+W_{ij} = 0\;\;(i \neq j)
+\]</span> So it can be easily proved.</p>
+<h4 id="problem-ii">problem ii</h4>
+<p><span class="math display">\[
+\bigtriangledown_{\theta}J(\theta) =
+\bigtriangledown_{\theta}(\theta^TX^TWX\theta - y^TWX\theta -
+\theta^TX^TWy + y^TWy) \\
+= \bigtriangledown_{\theta}(\theta^TX^TWX\theta - 2y^TWX\theta)\\
+= 2X^TWX\theta - 2y^TWX = 0
+\]</span></p>
+<p>So the learning parameter vector <span class="math inline">\(\theta\)</span> is： <span class="math display">\[
+\theta = (X^TWX)^{-1}y^TWX
+\]</span></p>
+<h4 id="problem-iii">problem iii</h4>
+<p><span class="math display">\[
+\frac{\partial  \ell(\theta)}{\partial  \theta_j} = \sum_{i =
+1}^{m}-\frac{(y^{(i)} - \theta^Tx^{(i)})}{(\sigma^{(i)})^2}x_{j}^{(i)}
+\]</span></p>
+<p>So it is a weighted gradient descent, and the weight is about the
+variance <span class="math inline">\(\sigma\)</span></p>
+<h3 id="sub-problem-b-4">Sub Problem (b)</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> util<br><br><span class="hljs-keyword">from</span> linear_model <span class="hljs-keyword">import</span> LinearModel<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">tau, train_path, eval_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Problem 5(b): Locally weighted regression (LWR)</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        tau: Bandwidth parameter for LWR.</span><br><span class="hljs-string">        train_path: Path to CSV file containing dataset for training.</span><br><span class="hljs-string">        eval_path: Path to CSV file containing dataset for evaluation.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Load training set</span><br>    x_train, y_train = util.load_dataset(train_path, add_intercept=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># *** START CODE HERE ***</span><br>    <span class="hljs-comment"># Fit a LWR model</span><br>    <span class="hljs-comment"># Get MSE value on the validation set</span><br>    <span class="hljs-comment"># Plot validation predictions on top of training set</span><br>    <span class="hljs-comment"># No need to save predictions</span><br>    <span class="hljs-comment"># Plot data</span><br>    <span class="hljs-comment"># *** END CODE HERE ***</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LocallyWeightedLinearRegression</span>(<span class="hljs-title class_ inherited__">LinearModel</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Locally Weighted Regression (LWR).</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Example usage:</span><br><span class="hljs-string">        &gt; clf = LocallyWeightedLinearRegression(tau)</span><br><span class="hljs-string">        &gt; clf.fit(x_train, y_train)</span><br><span class="hljs-string">        &gt; clf.predict(x_eval)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, tau</span>):<br>        <span class="hljs-built_in">super</span>(LocallyWeightedLinearRegression, self).__init__()<br>        self.tau = tau<br>        self.x = <span class="hljs-literal">None</span><br>        self.y = <span class="hljs-literal">None</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self, x, y</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Fit LWR by saving the training set.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        self.x,self.y = x,y<br>        <span class="hljs-comment"># *** END CODE HERE ***</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Make predictions given inputs x.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            x: Inputs of shape (m, n).</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Returns:</span><br><span class="hljs-string">            Outputs of shape (m,).</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># *** START CODE HERE ***</span><br>        m,n = x.shape<br>        pred = np.zeros(n)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>            Weight = np.diag(np.exp(-np.<span class="hljs-built_in">sum</span>(self.x - x[i]) ** <span class="hljs-number">2</span>,axis=<span class="hljs-number">1</span>) / (<span class="hljs-number">2</span> * (self.tau ** <span class="hljs-number">2</span>)))<br>            pred[i] = np.linalg.inv(self.x.T.dot(Weight).dot(self.x)).dot(self.x.T).dot(Weight).dot(self.y).T.dot(x[i])<br>        <span class="hljs-keyword">return</span> pred<br>        <span class="hljs-comment"># *** END CODE HERE ***</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="sub-problem-c-3">Sub Problem (c)</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> util<br><br><span class="hljs-keyword">from</span> p05b_lwr <span class="hljs-keyword">import</span> LocallyWeightedLinearRegression<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">tau_values, train_path, valid_path, test_path, pred_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Problem 5(b): Tune the bandwidth paramater tau for LWR.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        tau_values: List of tau values to try.</span><br><span class="hljs-string">        train_path: Path to CSV file containing training set.</span><br><span class="hljs-string">        valid_path: Path to CSV file containing validation set.</span><br><span class="hljs-string">        test_path: Path to CSV file containing test set.</span><br><span class="hljs-string">        pred_path: Path to save predictions.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Load training set</span><br>    x_train, y_train = util.load_dataset(train_path, add_intercept=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># *** START CODE HERE ***</span><br>    <span class="hljs-comment"># Search tau_values for the best tau (lowest MSE on the validation set)</span><br>    <span class="hljs-comment"># Fit a LWR model with the best tau value</span><br>    <span class="hljs-comment"># Run on the test set to get the MSE value</span><br>    <span class="hljs-comment"># Save predictions to pred_path</span><br>    <span class="hljs-comment"># Plot data</span><br>    x_eval, y_eval = util.load_dataset(valid_path, add_intercept=<span class="hljs-literal">True</span>)<br>    x_test, y_test = util.load_dataset(test_path, add_intercept=<span class="hljs-literal">True</span>)<br>    model = LocallyWeightedLinearRegression(tau=<span class="hljs-number">0.5</span>)<br>    model.fit(x_train, y_train)<br>    MSE = []<br>    <span class="hljs-keyword">for</span> tau <span class="hljs-keyword">in</span> tau_values:<br>        model.tau = tau<br>        pred = model.predict(x_eval)<br>        squared_estimate = np.mean((pred - y_eval) ** <span class="hljs-number">2</span>)<br>        MSE.append(squared_estimate)<br>        <br>        plt.figure()<br>        plt.title(<span class="hljs-string">&#x27;tau = &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(tau))<br>        plt.plot(x_train, y_train, <span class="hljs-string">&#x27;bx&#x27;</span>, linewidth=<span class="hljs-number">2</span>)<br>        plt.plot(x_eval, pred, <span class="hljs-string">&#x27;ro&#x27;</span>, linewidth=<span class="hljs-number">2</span>)<br>        plt.xlabel(<span class="hljs-string">&#x27;x&#x27;</span>)<br>        plt.ylabel(<span class="hljs-string">&#x27;y&#x27;</span>)<br>        plt.savefig(<span class="hljs-string">&#x27;p05c_tau_&#123;&#125;.png&#x27;</span>.<span class="hljs-built_in">format</span>(tau))<br><br>    tau_output = tau_values[np.argmin(MSE)]<br>    model.tau = tau_output<br>    pred = model.predict(x_test)<br>    np.savetxt(pred_path,pred)<br>    mse = np.mean((pred - y_eval) ** <span class="hljs-number">2</span>)<br><br><br>    <span class="hljs-comment"># *** END CODE HERE ***</span><br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/">machine learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/CS229/">CS229</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CS229/">CS229</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/18/machine%20learning/CS229/cs229%20ps2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CS229 ps2-solution</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/11/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/chap2/">
+                        <span class="hidden-mobile">Chap2 灰度变换与空间滤波</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

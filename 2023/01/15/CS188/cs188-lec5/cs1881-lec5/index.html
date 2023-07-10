@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Expectimax Search  Why wouldn’t we know what the result of an action will be?  Explicit randomness: rolling dice Unpredictable opponents: the ghosts respond randomly Actions can fail: when movin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs188 lecture5">
+<meta property="og:url" content="http://example.com/2023/01/15/CS188/cs188-lec5/cs1881-lec5/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:description" content="Expectimax Search  Why wouldn’t we know what the result of an action will be?  Explicit randomness: rolling dice Unpredictable opponents: the ghosts respond randomly Actions can fail: when movin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/.com//2023winter/CS188/lecture%20notes/lec5-1.png">
+<meta property="article:published_time" content="2023-01-15T02:50:57.000Z">
+<meta property="article:modified_time" content="2023-01-17T08:35:05.870Z">
+<meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="CS188">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/.com//2023winter/CS188/lecture%20notes/lec5-1.png">
+  
+  
+  <title>cs188 lecture5 - JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="cs188 lecture5">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-01-15 10:50" pubdate>
+        2023年1月15日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">cs188 lecture5</h1>
+            
+            <div class="markdown-body">
+              <h2 id="expectimax-search">Expectimax Search</h2>
+<ul>
+<li><p>Why wouldn’t we know what the result of an action will be?</p>
+<ul>
+<li>Explicit randomness: rolling dice</li>
+<li>Unpredictable opponents: the ghosts respond randomly</li>
+<li>Actions can fail: when moving a robot, wheels might slip</li>
+</ul></li>
+<li><p>Values should now reflect average-case (expectimax) outcomes, not
+worst-case (minimax) outcomes</p></li>
+<li><p><strong>Expectimax search</strong>: compute the average score
+under optimal play</p>
+<ul>
+<li>Max nodes as in minimax search</li>
+<li>Chance nodes are like min nodes but the outcome is uncertain</li>
+<li>Calculate their <strong>expected utilities</strong></li>
+</ul></li>
+</ul>
+<h3 id="expectimax-pseudocode">Expectimax Pseudocode</h3>
+<p>The value function is:</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs pf">def value(<span class="hljs-keyword">state</span>):<br>	if the <span class="hljs-keyword">state</span> is a terminal <span class="hljs-keyword">state</span>: return <span class="hljs-keyword">state</span>&#x27;s utility<br>	if the next agent is MAX: return max-value(<span class="hljs-keyword">state</span>)<br>	if the next agent is EXP: return exp-value(<span class="hljs-keyword">state</span>)<br></code></pre></td></tr></table></figure>
+<p>The max-value function mentioned before is:</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pf">def max-value(<span class="hljs-keyword">state</span>):<br>	initialize v = -inf<br>	<span class="hljs-keyword">for</span> each successor of <span class="hljs-keyword">state</span>:<br>		v = <span class="hljs-keyword">max</span>(v,value(successor))<br>	return v<br></code></pre></td></tr></table></figure>
+<p>The exp-value mentioned before is:</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pf">def exp-value(<span class="hljs-keyword">state</span>):<br>	initialize v = <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> each successor of <span class="hljs-keyword">state</span>:<br>		p = <span class="hljs-keyword">probability</span>(successor)<br>		v += p * value(successor)<br>	return v<br></code></pre></td></tr></table></figure>
+<p>Expectimax Search can't pruning because you will never know the
+affect of the value of the next node</p>
+<h2 id="other-game-types">Other Game Types</h2>
+<h3 id="mixed-layer-types">Mixed Layer Types</h3>
+<ul>
+<li>Expectiminimax
+<ul>
+<li>Environment is an extra "random agent" player that moves after each
+min/max agent</li>
+<li>Each node computes the appropriate combinations of its children</li>
+</ul></li>
+</ul>
+<h3 id="multi-agent-utilities">Multi-Agent Utilities</h3>
+<p>The game is not zero-sum, or has multiple players</p>
+<ul>
+<li>Generalization of minimax:
+<ul>
+<li>Terminals have utility tuples</li>
+<li>Node values are also utility tuples</li>
+<li>Each player maximizes its own component</li>
+<li>Can give rise tio cooperation and competition dynamically</li>
+</ul></li>
+</ul>
+<h2 id="maximum-expected-utility">Maximum Expected Utility</h2>
+<p>Why choose average utilities instead of minimax?</p>
+<p>Minimax consider a lot of bad situations with quite small
+probabilities</p>
+<ul>
+<li>Principle of maximum expected utility:
+<ul>
+<li>A rational agent should chose the action that <strong>maximizes its
+expected utility,given its knowledge of the world</strong></li>
+</ul></li>
+<li>But it also get some questions:
+<ul>
+<li>Where do utilities come from?</li>
+<li>How do we know such utilities even exist?</li>
+<li>How do we know that averaging even makes sense?</li>
+<li>What if our behavior (preferences) can't be described by
+utilities?</li>
+</ul></li>
+</ul>
+<h2 id="utilities">Utilities</h2>
+<ul>
+<li><p><strong>Utilities are functions from outcomes (states of the
+world) to real numbers that describe an agent’s
+preferences</strong></p></li>
+<li><p>Where do utilities come from?</p>
+<ul>
+<li>Utilieties sumarize the agent's goals</li>
+<li>Theorem: any “rational” preferences can be summarized as a utility
+function</li>
+</ul></li>
+<li><p>We hard-wire utilities and let behaviors emerge</p>
+<ul>
+<li>Why don't we let agents pick utilities?</li>
+<li>Why don't we prescribe behaviors?</li>
+</ul></li>
+</ul>
+<h2 id="preference">Preference</h2>
+<ul>
+<li><p>An agent must have preferences among:</p>
+<ul>
+<li><p>Prizes: <span class="math inline">\(A,B,\)</span>etc</p></li>
+<li><p>Lotteries: situations with uncertain prizes: <span class="math display">\[
+L = [p,A;\;\;(1-p),B]
+\]</span></p></li>
+</ul></li>
+<li><p>Notation:</p>
+<ul>
+<li>Preference: <span class="math inline">\(A \succ B\)</span></li>
+<li>Indifference: <span class="math inline">\(A \sim B\)</span></li>
+</ul></li>
+</ul>
+<h2 id="rational-preferences">Rational Preferences</h2>
+<ul>
+<li>We want some constraints on preferences before we call them
+rational: <span class="math display">\[
+Axiom\;of\;Transtivity: (A \succ B) \,\wedge\,(B \succ C)
+\,\Rightarrow\, (A \succ C)
+\]</span></li>
+</ul>
+<p>Intransitive preference will leads to error(bad utilities)</p>
+<figure>
+<img src="/.com//2023winter\CS188\lecture%20notes\lec5-1.png" srcset="/img/loading.gif" lazyload alt="lec5-1">
+<figcaption aria-hidden="true">lec5-1</figcaption>
+</figure>
+<p>Theorem: Rational preferences imply behavior describable as
+maximization of e</p>
+<ul>
+<li>Given any preferences satisfying these constraints, there exists a
+real-valued function U such that:</li>
+</ul>
+<p><span class="math display">\[
+U(A) \geq U(B) \Leftrightarrow A \succeq B \\
+U([p_1,S_1;...;p_n,S_n]) = \sum_{i}p_iU(S_i)
+\]</span></p>
+<ul>
+<li>Maximum expected utility(MEU) principle:
+<ul>
+<li>Choose the action that maximizes expected utility</li>
+<li>Note: an agent can be entirely rational (consistent with MEU)
+without ever representing or manipulating utilities and
+probabilities</li>
+<li>E.g., a lookup table for perfect tic-tac-toe, a reflex vacuum
+cleaner</li>
+</ul></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E8%AF%BE%E7%AC%94%E8%AE%B0/">网课笔记</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E8%AF%BE%E7%AC%94%E8%AE%B0/CS188/">CS188</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CS188/">CS188</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/17/CS188/cs188-lec6/cs188-lec6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">cs188 lecture6</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/15/CS188/cs188-lec4/cs1881-lec4/">
+                        <span class="hidden-mobile">cs188 lecture4</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

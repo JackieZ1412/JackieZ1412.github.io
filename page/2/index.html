@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="JackieZ&#39;s Blog">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="JackieZ">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="An elegant Material-Design theme for Hexo">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/01/grouptheory/grouptheory/" target="_self">
+          群论
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/11/01/grouptheory/grouptheory/" target="_self">
+          
+          循环群 设 \(G\) 为群，\(S\) 是 \(G\) 的子集，\(G\) 中包含 \(S\) 的最小子群 \(A\) 的叫做由 \(S\) 生成的子群，表示为 \(A &#x3D; &lt;S&gt;\) 如果群 \(G\) 自身由子集 \(S\) 生成，即 \(G &#x3D; &lt;S&gt;\)，则称 \(S\) 是 \(G\) 的一个生成元系，如果 \(G &#x3D; &lt;S&gt;\)并且 \
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-01 09:06" pubdate>
+              2022-11-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/math/">math</a>
+            
+              <a href="/categories/math/%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0/">近世代数</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0/">近世代数</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/23/Introduction%20to%20Algorithms/fibonacciheap/fibonacciheap/" target="_self">
+          Chap19 斐波那契堆
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/23/Introduction%20to%20Algorithms/fibonacciheap/fibonacciheap/" target="_self">
+          
+          思考题 Problem 2 Sub Problem a 二项树的第k项由一个根节点和k个子树构成，其子树节点依次为\(B_0,...,B_{k - 1}\)，所以有  其节点个数为\(1 + \sum_{i &#x3D; 0}^{k - 1}|B_i|\)，由数学归纳法可证为\(2^k\)个节点 同理，二项树的高度为最大子树高+1，那么由归纳法同理可证为k(\(B_0\)的节点数为1，高为0)
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-23 19:08" pubdate>
+              2022-10-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/algorithms/">algorithms</a>
+            
+              <a href="/categories/algorithms/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E9%A2%98%E8%A7%A3/">算法导论题解</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/algorithms/">algorithms</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/17/machine%20learning/cluster/cluster/" target="_self">
+          聚类算法
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/17/machine%20learning/cluster/cluster/" target="_self">
+          
+          聚类的基本概念 相似度和距离 闵可夫斯基距离 在聚类中，可将样本集合看作是向量空间中点的集合，以该空间的距离表示样本之间的相似度。常用距离有闵可夫斯基距离，特别是欧氏距离。闵可夫斯基距离越大，相似度越小 定义：给定样本集合矩阵 \(X\)，\(X\) 是 \(m\) 维实数向量空间中点的集合，其中 \(x_i,x_j \in X\)，\(x_i &#x3D; (x_{1i},x_{2i},..
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-17 19:17" pubdate>
+              2022-10-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/machine-learning/">machine learning</a>
+            
+              <a href="/categories/machine-learning/notes/">notes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/machine-learning/">machine learning</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/09/machine%20learning/adaboost/adaboost/" target="_self">
+          Boosting算法
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/09/machine%20learning/adaboost/adaboost/" target="_self">
+          
+          AdaBoost算法 Boosting基本思路 Boosting基于这样一种思想：对于一个复杂任务来说，将多个专家的判断进行适当的综合得出的判断比其中任何一个专家单独的判断都好 强可学习和弱可学习：对于一个概念，如果存在一个多项式的学习算法能够学习它，并且成功率很高，那么就称这个概念是强可学习的；而如果学习的正确率仅比随即猜测略好，那么就称这个概念是弱可学习的；后来证明得强可学习和弱可学习的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-09 20:21" pubdate>
+              2022-10-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/machine-learning/">machine learning</a>
+            
+              <a href="/categories/machine-learning/notes/">notes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/machine-learning/">machine learning</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/27/math/numbertheory/numbertheory/" target="_self">
+          Chap5 指数与原根
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/09/27/math/numbertheory/numbertheory/" target="_self">
+          
+          整数的次数 定义：设\(m &gt; 0\)，\((a,m) &#x3D; 1\)，\(l\) 是使 \[ a^l \equiv 1 \;(mod \,m) \] 成立的最小正整数，则 \(l\) 叫做 \(a\) 对模数 \(m\) 的次数 定理：设 \(a\) 对模数 \(m\) 的次数为 \(l\)， \(a^n \equiv 1 \;(mod\, m)\)，\(n &gt; 0\)
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-27 10:57" pubdate>
+              2022-09-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/math/">math</a>
+            
+              <a href="/categories/math/%E6%95%B0%E8%AE%BA/">数论</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">数论</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/13/machine%20learning/PCA/PCA/" target="_self">
+          主成分分析
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/09/13/machine%20learning/PCA/PCA/" target="_self">
+          
+          总体主成分分析 统计分析中，数据的变量之间可能存在相关性，以致增加了分析的难度。于是考虑由少数不相关的变量代替相关变量，用来表示数据，并且要求能够保留数据中的大部分信息。 主成分分析中：  首先对给定数据进行归一化，使得数据每一变量变为均值为0，方差为1. 之后对数据进行正交变换，原来由线性相关变量表示的数据通过正交变换变成由若干个线性无关的新变量表示的数据。新变量是可能的正交变换中变量
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-13 16:01" pubdate>
+              2022-09-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/machine-learning/">machine learning</a>
+            
+              <a href="/categories/machine-learning/notes/">notes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/machine-learning/">machine learning</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/12/machine%20learning/SVD/SVD/" target="_self">
+          奇异值分解
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/09/12/machine%20learning/SVD/SVD/" target="_self">
+          
+          奇异值分解的定义与性质 定义和定理 定义(奇异值分解)：矩阵的奇异值分解是指将一个非0的\(m\times n\)实矩阵\(\mathbf{A}\)，\(\mathbf{A} \in \mathbf{R}^{m\times n}\)，表示为以下三个实矩阵乘积形式的运算，即进行矩阵的因子分解： \[ \mathbf{A} &#x3D; \mathbf{U\varSigma V^T} \] 其中，\
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-12 15:08" pubdate>
+              2022-09-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/machine-learning/">machine learning</a>
+            
+              <a href="/categories/machine-learning/notes/">notes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/machine-learning/">machine learning</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/07/machine%20learning/decisiontree/decisiontree/" target="_self">
+          决策树
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/09/07/machine%20learning/decisiontree/decisiontree/" target="_self">
+          
+          决策树模型和学习 定义：分类决策树模型是一种描述对实例进行分类的树形结构。决策树由节点和有向边组成。结点有两种类型：内部结点和叶结点。内部结点表示一个特征或属性，叶结点表示一个类 决策树的if-then规则 可以将决策树看成一个if-then规则的集合。将决策树转换成if-then规则的规则如下：由决策树的根结点到叶结点的每一条路径构建一条规则；路径上内部结点的特征对应规则的条件，而叶结点的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-07 20:24" pubdate>
+              2022-09-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/machine-learning/">machine learning</a>
+            
+              <a href="/categories/machine-learning/notes/">notes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/machine-learning/">machine learning</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/07/machine%20learning/linearmodel/linearmodel/" target="_self">
+          线性模型
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/09/07/machine%20learning/linearmodel/linearmodel/" target="_self">
+          
+          基本形式 给定一个由 \(d\) 个属性描述的示例 \(x &#x3D; (x_1,x_2,...,x_d)\)，线性模型通过学习一个属性的线性组合来建立一个预测样本的函数，即： \[ f(x) &#x3D; (\sum_{i &#x3D; 1}^n w_ix_i) + b \] 将其写为向量形式为： \[ f(x) &#x3D; w^Tx + b \] 或者我们可以将 \(x\) 扩展一维，其属性值为\(x_{n +
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-07 20:24" pubdate>
+              2022-09-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/machine-learning/">machine learning</a>
+            
+              <a href="/categories/machine-learning/notes/">notes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/machine-learning/">machine learning</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/08/09/fubianChap3/" target="_self">
+          Chap3 解析函数的积分表示
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/08/09/fubianChap3/" target="_self">
+          
+          复变函数的积分 我们约定以下提到的曲线(包括简单曲线)都是光滑或逐段光滑的 定义：设\(C\)是平面上一条有向曲线，其起点是\(z_0\)，终点是\(Z\)，\(f(z)\)是定义在\(C\)上的单值函数，任意用一列分点 \[ z_k &#x3D; x_k + iy_k \] 把曲线分为\(n\)个小段，在每个小段上任取点\(\zeta_k\)作和 \[ \sum_{k &#x3D; 1}^{n} f(\z
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-09 18:36" pubdate>
+              2022-08-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/math/">math</a>
+            
+              <a href="/categories/math/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">复变函数</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">复变函数</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

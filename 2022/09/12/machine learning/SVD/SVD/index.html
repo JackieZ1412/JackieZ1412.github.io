@@ -1,0 +1,561 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="奇异值分解的定义与性质 定义和定理 定义(奇异值分解)：矩阵的奇异值分解是指将一个非0的\(m\times n\)实矩阵\(\mathbf{A}\)，\(\mathbf{A} \in \mathbf{R}^{m\times n}\)，表示为以下三个实矩阵乘积形式的运算，即进行矩阵的因子分解： \[ \mathbf{A} &#x3D; \mathbf{U\varSigma V^T} \] 其中，\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="奇异值分解">
+<meta property="og:url" content="http://example.com/2022/09/12/machine%20learning/SVD/SVD/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:description" content="奇异值分解的定义与性质 定义和定理 定义(奇异值分解)：矩阵的奇异值分解是指将一个非0的\(m\times n\)实矩阵\(\mathbf{A}\)，\(\mathbf{A} \in \mathbf{R}^{m\times n}\)，表示为以下三个实矩阵乘积形式的运算，即进行矩阵的因子分解： \[ \mathbf{A} &#x3D; \mathbf{U\varSigma V^T} \] 其中，\">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-12T07:08:59.000Z">
+<meta property="article:modified_time" content="2022-09-12T08:41:04.204Z">
+<meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="machine learning">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>奇异值分解 - JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="奇异值分解">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-09-12 15:08" pubdate>
+        2022年9月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">奇异值分解</h1>
+            
+            <div class="markdown-body">
+              <h2 id="奇异值分解的定义与性质">奇异值分解的定义与性质</h2>
+<h3 id="定义和定理">定义和定理</h3>
+<p><strong>定义(奇异值分解)：</strong>矩阵的奇异值分解是指将一个非0的<span class="math inline">\(m\times n\)</span>实矩阵<span class="math inline">\(\mathbf{A}\)</span>，<span class="math inline">\(\mathbf{A} \in \mathbf{R}^{m\times
+n}\)</span>，表示为以下三个实矩阵乘积形式的运算，即进行矩阵的因子分解：
+<span class="math display">\[
+\mathbf{A} = \mathbf{U\varSigma V^T}
+\]</span> 其中，<span class="math inline">\(\mathbf{U}\)</span>是<span class="math inline">\(m\)</span>阶正交矩阵，<span class="math inline">\(\mathbf{V}\)</span>是<span class="math inline">\(n\)</span>阶正交矩阵，<span class="math inline">\(\varSigma\)</span>是由降序排列的非负的对角线元素组成的<span class="math inline">\(m\times n\)</span>矩形对角矩阵，满足： <span class="math display">\[
+\begin{align*}
+\mathbf{UU^T} &amp;= \mathbf{I} \\
+\mathbf{VV^T} &amp;= \mathbf{I} \\
+\varSigma &amp;= diag(\sigma_1,\sigma_2,...,\sigma_p) \\
+\sigma_1 \geq \sigma_2 &amp;\geq ... \geq \sigma_p \geq 0 \\
+p &amp;= min(m,n)
+\end{align*}
+\]</span> <span class="math inline">\(\mathbf{U\varSigma
+V^T}\)</span>称为矩阵<span class="math inline">\(\mathbf{A}\)</span>的奇异值分解(sigular value
+decomposition, SVD)，<span class="math inline">\(\sigma_i\)</span>称为矩阵<span class="math inline">\(\mathbf{A}\)</span>的奇异值，<span class="math inline">\(\mathbf{U}\)</span>的列向量被称为左奇异向量，<span class="math inline">\(\mathbf{V}\)</span>的列向量被称为右奇异向量</p>
+<p>注意到奇异值分解不要求原矩阵为方阵，事实上奇异值分解可看作是对方阵对角化的推广</p>
+<p>矩阵的奇异值分解不一定是唯一的(这是因为其左右奇异向量均为两个特定空间的正交向量，其可能可以通过线性组合组成新的左右奇异向量从而构成新的奇异值分解)</p>
+<p><strong>定理(奇异值分解基本定理)</strong>：若<span class="math inline">\(\mathbf{A}\)</span>为一个<span class="math inline">\(m\times n\)</span>实矩阵，<span class="math inline">\(\mathbf{A} \in \mathbf{R}^{m\times
+n}\)</span>，则<span class="math inline">\(\mathbf{A}\)</span>的奇异值分解存在： <span class="math display">\[
+\mathbf{A} = \mathbf{U}\varSigma V^T
+\]</span> 其中，<span class="math inline">\(\mathbf{U}\)</span>是<span class="math inline">\(m\)</span>阶正交矩阵，<span class="math inline">\(\mathbf{V}\)</span>是<span class="math inline">\(n\)</span>阶正交矩阵，<span class="math inline">\(\varSigma\)</span>是由降序排列的非负的对角线元素组成的<span class="math inline">\(m\times
+n\)</span>矩形对角矩阵，其对角线元素按降序排列</p>
+<h3 id="紧奇异值分解与截断奇异值分解">紧奇异值分解与截断奇异值分解</h3>
+<p>上述的奇异值分解给出的是完全奇异值分解，实际上我们常用的是奇异值分解的紧凑形式和截断形式。紧奇异值分解是与原始矩阵等秩的奇异值分解；截断奇异值分解是比原始矩阵低秩的奇异值分解</p>
+<h4 id="紧奇异值分解">紧奇异值分解</h4>
+<p><strong>定义：</strong>设有<span class="math inline">\(m\times
+n\)</span>的实矩阵<span class="math inline">\(\mathbf{A}\)</span>，其秩为<span class="math inline">\(rank(A) = r\)</span>，<span class="math inline">\(r \leq min(m,n)\)</span>，则称<span class="math inline">\(\mathbf{U}_r\varSigma_r\mathbf{V}_r^T\)</span>为<span class="math inline">\(\mathbf{A}\)</span>的紧奇异值分解，即： <span class="math display">\[
+\mathbf{A} = \mathbf{U}_r\varSigma_r\mathbf{V}_r^T
+\]</span> 其中，<span class="math inline">\(\mathbf{U}_r\)</span>
+是<span class="math inline">\(m\times r\)</span>矩阵，<span class="math inline">\(\mathbf{V}_r\)</span>是<span class="math inline">\(n\times r\)</span>矩阵，<span class="math inline">\(\varSigma_r\)</span>是<span class="math inline">\(r\)</span>阶对角矩阵，矩阵<span class="math inline">\(U_r\)</span>由完全奇异值分解种<span class="math inline">\(\mathbf{U}\)</span>的前r列、矩阵<span class="math inline">\(\mathbf{V}_r\)</span>由<span class="math inline">\(\mathbf{V}\)</span>的前r列、矩阵<span class="math inline">\(\varSigma_{r}\)</span>由<span class="math inline">\(\varSigma\)</span>的前<span class="math inline">\(r\)</span>个对角线元素得到，紧奇异值分解的对角矩阵<span class="math inline">\(\varSigma_{r}\)</span>的秩与原始矩阵<span class="math inline">\(\mathbf{A}\)</span>的秩相等</p>
+<h4 id="截断奇异值分解">截断奇异值分解</h4>
+<p>在矩阵的奇异值分解中，只取最大的<span class="math inline">\(k\)</span>个奇异值（<span class="math inline">\(k
+&lt; r\)</span>，<span class="math inline">\(r\)</span>为矩阵的秩）对应的部分，就得到矩阵的截断奇异值分解。实际应用中提到矩阵的奇异值分解时，通常指截断奇异值分解</p>
+<p><strong>定义：</strong>设有<span class="math inline">\(m\times
+n\)</span>的实矩阵<span class="math inline">\(\mathbf{A}\)</span>，其秩为<span class="math inline">\(rank(A) = r\)</span>，<span class="math inline">\(0 &lt; k &lt; r\)</span>，则称<span class="math inline">\(\mathbf{U}_k\varSigma_k\mathbf{V}_k^T\)</span>为<span class="math inline">\(\mathbf{A}\)</span>的截断奇异值分解，即： <span class="math display">\[
+\mathbf{A} \approx \mathbf{U}_k\varSigma_k\mathbf{V}_k^T
+\]</span> 其中，<span class="math inline">\(\mathbf{U}_k\)</span>
+是<span class="math inline">\(m\times k\)</span>矩阵，<span class="math inline">\(\mathbf{V}_k\)</span>是<span class="math inline">\(n\times k\)</span>矩阵，<span class="math inline">\(\varSigma_r\)</span>是<span class="math inline">\(k\)</span>阶对角矩阵，矩阵<span class="math inline">\(U_k\)</span>由完全奇异值分解种<span class="math inline">\(\mathbf{U}\)</span>的前k列、矩阵<span class="math inline">\(\mathbf{V}_k\)</span>由<span class="math inline">\(\mathbf{V}\)</span>的前k列、矩阵<span class="math inline">\(\varSigma_{k}\)</span>由<span class="math inline">\(\varSigma\)</span>的前<span class="math inline">\(k\)</span>个对角线元素得到，截断奇异值分解的对角矩阵<span class="math inline">\(\varSigma_{k}\)</span>的秩比原始矩阵<span class="math inline">\(\mathbf{A}\)</span>的秩小</p>
+<p><strong>奇异值分解的意义</strong>：相当于对一个矩阵依次做一次旋转变换(<span class="math inline">\(\mathbf{U}\)</span>)，一次缩放变换(<span class="math inline">\(\varSigma\)</span>)，一次旋转变换(<span class="math inline">\(V\)</span>)</p>
+<h3 id="奇异值分解的主要性质">奇异值分解的主要性质</h3>
+<ol type="1">
+<li>若有奇异值分解<span class="math inline">\(\mathbf{A} =
+\mathbf{U\varSigma V^T}\)</span>，则以下关系成立：</li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}
+A^TA &amp;= \mathbf{V}(\varSigma^T\varSigma)\mathbf{V}^T \\
+AA^T &amp;= \mathbf{U}^(\varSigma\varSigma^T)\mathbf{U}
+\end{align*}
+\]</span></p>
+<ol start="2" type="1">
+<li>在矩阵等奇异值分解中，奇异值、左奇异向量、右奇异向量之间存在对应关系：</li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}
+\mathbf{AV} &amp;= \mathbf{U}\varSigma \\
+\mathbf{A}^T\mathbf{U} &amp;= \mathbf{V}\varSigma^T
+\end{align*}
+\]</span></p>
+<ol start="3" type="1">
+<li>矩阵<span class="math inline">\(\mathbf{A}\)</span>的奇异值分解中，奇异值<span class="math inline">\(\sigma_1,\sigma_2,...,\sigma_n\)</span>是唯一的，而矩阵<span class="math inline">\(\mathbf{U},\mathbf{V}\)</span>不唯一</li>
+<li>矩阵<span class="math inline">\(\mathbf{U}\)</span>和<span class="math inline">\(\varSigma\)</span>等秩，等于正奇异值的个数(包含重复的奇异值)</li>
+<li>矩阵<span class="math inline">\(\mathbf{A}\)</span>的r个右奇异向量<span class="math inline">\(v_1,v_2,...,v_r\)</span>构成<span class="math inline">\(\mathbf{A}^T\)</span>的值域<span class="math inline">\(R(\mathbf{A}^T)\)</span>的一组标准正交基</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/">machine learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/notes/">notes</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/13/machine%20learning/PCA/PCA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">主成分分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/07/machine%20learning/decisiontree/decisiontree/">
+                        <span class="hidden-mobile">决策树</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

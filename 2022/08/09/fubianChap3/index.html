@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="复变函数的积分 我们约定以下提到的曲线(包括简单曲线)都是光滑或逐段光滑的 定义：设\(C\)是平面上一条有向曲线，其起点是\(z_0\)，终点是\(Z\)，\(f(z)\)是定义在\(C\)上的单值函数，任意用一列分点 \[ z_k &#x3D; x_k + iy_k \] 把曲线分为\(n\)个小段，在每个小段上任取点\(\zeta_k\)作和 \[ \sum_{k &#x3D; 1}^{n} f(\z">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chap3 解析函数的积分表示">
+<meta property="og:url" content="http://example.com/2022/08/09/fubianChap3/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:description" content="复变函数的积分 我们约定以下提到的曲线(包括简单曲线)都是光滑或逐段光滑的 定义：设\(C\)是平面上一条有向曲线，其起点是\(z_0\)，终点是\(Z\)，\(f(z)\)是定义在\(C\)上的单值函数，任意用一列分点 \[ z_k &#x3D; x_k + iy_k \] 把曲线分为\(n\)个小段，在每个小段上任取点\(\zeta_k\)作和 \[ \sum_{k &#x3D; 1}^{n} f(\z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-09T10:36:22.000Z">
+<meta property="article:modified_time" content="2022-08-09T13:25:53.311Z">
+<meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="复变函数">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Chap3 解析函数的积分表示 - JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Chap3 解析函数的积分表示">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-09 18:36" pubdate>
+        2022年8月9日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Chap3 解析函数的积分表示</h1>
+            
+            <div class="markdown-body">
+              <h2 id="复变函数的积分">复变函数的积分</h2>
+<p>我们约定以下提到的曲线(包括简单曲线)都是光滑或逐段光滑的</p>
+<p><strong>定义</strong>：设<span class="math inline">\(C\)</span>是平面上一条有向曲线，其起点是<span class="math inline">\(z_0\)</span>，终点是<span class="math inline">\(Z\)</span>，<span class="math inline">\(f(z)\)</span>是定义在<span class="math inline">\(C\)</span>上的单值函数，任意用一列分点 <span class="math display">\[
+z_k = x_k + iy_k
+\]</span> 把曲线分为<span class="math inline">\(n\)</span>个小段，在每个小段上任取点<span class="math inline">\(\zeta_k\)</span>作和 <span class="math display">\[
+\sum_{k = 1}^{n} f(\zeta_k)\Delta z_k
+\]</span> 记<span class="math inline">\(\lambda = max_k |\Delta
+z_k|\)</span>，如果当<span class="math inline">\(\lambda\rightarrow
+0\)</span>时，上述和的极限存在，而且其值与弧段的分法和各<span class="math inline">\(\zeta_k\)</span>的取法无关，就称这个极限为<span class="math inline">\(f(z)\)</span>沿曲线<span class="math inline">\(C\)</span>自<span class="math inline">\(z_0\)</span>到<span class="math inline">\(Z\)</span>的积分，记作 <span class="math display">\[
+\int_{C} f(z)dz
+\]</span> <strong>定理</strong>：设<span class="math inline">\(f(z) =
+u(x,y) + iv(x,y)\)</span>在曲线<span class="math inline">\(C\)</span>上连续，则复积分<span class="math inline">\(\int_{C} f(z)dz\)</span>存在，而且 <span class="math display">\[
+\mathop{\int}_{C}f(z)dz = \mathop{\int}_{C}u(x,y)dx - v(x,y)dy +
+i\mathop{\int}_{C}v(x,y)dx + u(x,y)dy
+\]</span> 从前述的C-R方程和现在的积分法则可以看出，<span class="math inline">\(u(x,y)dx\)</span>和<span class="math inline">\(v(x,y)dy\)</span>相关，<span class="math inline">\(v(x,y)dx\)</span>和<span class="math inline">\(u(x,y)dy\)</span>相关。这是因为 <span class="math display">\[
+\begin{align*}
+f(z)dz &amp;=(u(x,y) + iv(x,y))(\Delta x + i\Delta y) \\
+&amp;= (u(x,y)\Delta x - v(x,y)\Delta y) + i(u(x,y)\Delta y +
+v(x,y)\Delta x)
+\end{align*}
+\]</span> 同理求导运算时也应满足C-R方程，这是相关的</p>
+<p>一些曲线积分的基本性质对复积分仍然成立：</p>
+<ul>
+<li>如果<span class="math inline">\(k\)</span>为复常数，则</li>
+</ul>
+<p><span class="math display">\[
+\mathop{\int}_{C}kf(z)dz = k\mathop{\int}_{C}f(z)dz
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\int_{C}[f(z) + g(z)]dz = \int_C f(z)dz
++ \int_{C}g(z)dz\)</span></li>
+<li><span class="math inline">\(\int_{C}f(z)dz =
+-\int_{C^-}f(z)dz\)</span></li>
+<li>如果曲线<span class="math inline">\(C\)</span>由<span class="math inline">\(C_1\)</span>和<span class="math inline">\(C_2\)</span>组成，则：</li>
+</ul>
+<p><span class="math display">\[
+\mathop{\int}_{C}f(z)dz = \mathop{\int}_{C_1} f(z)dz +
+\mathop{\int}_{C_2}f(z)dz
+\]</span></p>
+<h3 id="长大不等式">长大不等式</h3>
+<p>在复变函数的许多论证和计算中，常要用到下面不等式的积分估计.设<span class="math inline">\(f(z)\)</span>在曲线<span class="math inline">\(C\)</span>上连续，则： <span class="math display">\[
+|\mathop{\int}_{C}f(z)dz\;| \leq \mathop{\int}_{C}|\;f(z)\;|\,ds
+\]</span> 特别地，若在曲线<span class="math inline">\(C\)</span>上有<span class="math inline">\(|f(z)|
+\leq M\)</span>，曲线<span class="math inline">\(C\)</span>的长为<span class="math inline">\(l\)</span>，则上式有： <span class="math display">\[
+|\mathop{\int}_{C}f(z)dz\;| \leq Ml
+\]</span> 该式即为长大不等式</p>
+<h2 id="柯西积分定理">柯西积分定理</h2>
+<p>复变函数中积分与积分的路径有关，那么何时积分与路径无关？柯西积分定理就解决了该问题</p>
+<p>今后把简单闭曲线叫做闭路，如非特别声明，凡沿闭路积分都是按正向(逆时针方向)取的</p>
+<p><strong>定理(柯西积分定理)</strong>：设<span class="math inline">\(D\)</span>是由闭路<span class="math inline">\(C\)</span>所围成的单连通区域，<span class="math inline">\(f(z)\)</span>在闭域<span class="math inline">\(\bar{D} = C + D\)</span>上解析，则 <span class="math display">\[
+\mathop{\int}_{C}f(z)dz = 0
+\]</span> 这里，所谓<span class="math inline">\(f(z)\)</span>在闭域<span class="math inline">\(\bar{D}\)</span>上解析，是指存在区域<span class="math inline">\(G\)</span>，使得<span class="math inline">\(\bar{D} \subset G\)</span>，且<span class="math inline">\(f(z)\)</span>在<span class="math inline">\(G\)</span>内解析</p>
+<p><strong>推论1</strong>：设<span class="math inline">\(f(z)\)</span>在单连通域<span class="math inline">\(D\)</span>内解析，<span class="math inline">\(C\)</span>是<span class="math inline">\(D\)</span>内的任意封闭曲线，则 <span class="math display">\[
+\mathop{\int}_{C}f(z)dz = 0
+\]</span> <strong>推论2</strong>：设<span class="math inline">\(f(z)\)</span>在单连通域<span class="math inline">\(D\)</span>内解析，<span class="math inline">\(C\)</span>是<span class="math inline">\(D\)</span>内任一条起于点<span class="math inline">\(z_0\)</span>而终于点<span class="math inline">\(z\)</span>的简单曲线，则积分 <span class="math display">\[
+\mathop{\int}_{C}f(\zeta)d\zeta
+\]</span> 的值不依赖于积分路径<span class="math inline">\(C\)</span>，而只由<span class="math inline">\(z_0\)</span>和<span class="math inline">\(z\)</span>确定.所以这个积分也可记作 <span class="math display">\[
+\int_{z_0}^{z}f(\zeta)d\zeta
+\]</span> <strong>定理</strong>：(多连通区域的柯西积分定理) 设<span class="math inline">\(f(z)\)</span>在复闭路<span class="math inline">\(C=C_0 + C_1^- + C_2^- + ... +
+C_n^-\)</span>及其所围成的多连通区域内解析，则 <span class="math display">\[
+\mathop{\int}_{C}f(z)dz = \mathop{\int}_{C_1}f(z)dz +
+\mathop{\int}_{C_2}f(z)dz + ... +
+\mathop{\int}_{C_n}f(z)dz
+\]</span> 或 <span class="math display">\[
+\mathop{\int}_{C}f(z)dz = 0
+\]</span></p>
+<h2 id="柯西积分公式">柯西积分公式</h2>
+<p><strong>定理1</strong>：设函数<span class="math inline">\(f(z)\)</span>在闭路(或复闭路)<span class="math inline">\(C\)</span>及其所围区域<span class="math inline">\(D\)</span>内解析，则对<span class="math inline">\(D\)</span>内任意一点<span class="math inline">\(z\)</span>，有 <span class="math display">\[
+f(z) = \frac{1}{2\pi i}\mathop{\int}_{C}\frac{f(\zeta)}{\zeta - z}d\zeta
+\]</span> <strong>定理2</strong>：在定理1的条件下，对于区域<span class="math inline">\(D\)</span>内的任一点<span class="math inline">\(z\)</span>，<span class="math inline">\(f(z)\)</span>有任意阶导数，且 <span class="math display">\[
+f^{(n)}(z) = \frac{n!}{2\pi i}\mathop{\int}_{C}\frac{f(\zeta)}{(\zeta -
+z)^{n + 1}}d\zeta
+\]</span> 这个公式也叫柯西积分公式</p>
+<h2 id="原函数">原函数</h2>
+<p><strong>定义</strong>：如果在区域<span class="math inline">\(D\)</span>内有<span class="math inline">\(F&#39;(z) = f(z)\)</span>，则<span class="math inline">\(F(z)\)</span>称为<span class="math inline">\(f(z)\)</span>在区域<span class="math inline">\(D\)</span>内的一个原函数</p>
+<p><strong>定理1</strong>：设<span class="math inline">\(f(z)\)</span>在单连通区域<span class="math inline">\(D\)</span>内连续，且对<span class="math inline">\(D\)</span>内任意闭路<span class="math inline">\(C\)</span>，有<span class="math inline">\(\int_{C}f(z)dz = 0\)</span>.
+那么，由变上限的积分所确定的函数 <span class="math display">\[
+F(z) = \int_{z_0}^{z}f(z)dz
+\]</span> (<span class="math inline">\(z_0\)</span>是<span class="math inline">\(D\)</span>内一定点)是<span class="math inline">\(D\)</span>内的解析函数，而且 <span class="math display">\[
+F&#39;(z) = f(z)\;\;(z \in D)
+\]</span> <strong>推论1</strong>：设<span class="math inline">\(f(z)\)</span>在单连通区域<span class="math inline">\(D\)</span>内解析，则定理1的结论成立</p>
+<p><strong>推论2</strong>：在推论1的条件下，对<span class="math inline">\(f(z)\)</span>的任一原函数<span class="math inline">\(H(z)\)</span>，有牛顿-莱布尼茨公式 <span class="math display">\[
+F(z) = \int_{z_0}^{z}f(z)dz = H(z) - H(z_0)
+\]</span> <strong>定理2</strong>：(Morera定理)在定理1的条件下，<span class="math inline">\(f(z)\)</span>是<span class="math inline">\(D\)</span>内的解析函数.</p>
+<h2 id="解析函数与调和函数的关系">解析函数与调和函数的关系</h2>
+<p><strong>定义</strong>：如果实二次函数<span class="math inline">\(u(x,y)\)</span>在区域<span class="math inline">\(D\)</span>内有二阶连续偏导数，且在<span class="math inline">\(D\)</span>内满足拉普拉斯(Laplace)方程 <span class="math display">\[
+\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} =
+0
+\]</span> 则称<span class="math inline">\(u(x,y)\)</span>是域<span class="math inline">\(D\)</span>内的调和函数.</p>
+<p><strong>定理1</strong>：设<span class="math inline">\(f(z) = u(x,y) +
+iv(x,y)\)</span>在域<span class="math inline">\(D\)</span>内解析，那么它的实部<span class="math inline">\(u\)</span>及虚部<span class="math inline">\(v\)</span>都是<span class="math inline">\(D\)</span>内的调和函数</p>
+<p><strong>定理2</strong>：设<span class="math inline">\(f(z) = u +
+iv\)</span>是一解析函数，且<span class="math inline">\(f&#39;(z) \neq
+0\)</span>，那么等值曲线簇 <span class="math display">\[
+u(x,y) = K_1
+\]</span> 与 <span class="math display">\[
+v(x,y) = K_2
+\]</span> 在其公共点上永远是互相正交的，这里<span class="math inline">\(K_1\)</span>和<span class="math inline">\(K_2\)</span>为常数</p>
+<p><strong>定理3</strong>：设<span class="math inline">\(u(x,y)\)</span>是单连通区域<span class="math inline">\(D\)</span>内的调和函数，则由曲线积分所确定的函数
+<span class="math display">\[
+v(x,y) = \int_{(x_0,y_0)}^{(x,y)} - \frac{\partial u}{\partial y}dx +
+\frac{\partial u}{\partial x}dy + C
+\]</span> 使得<span class="math inline">\(f(z) = u(x,y) +
+iv(x,y)\)</span>在<span class="math inline">\(D\)</span>内解析，其中，<span class="math inline">\((x,y)\)</span>是<span class="math inline">\(D\)</span>内任一点，<span class="math inline">\((x_0,y_0)\)</span>是<span class="math inline">\(D\)</span>内一定点，<span class="math inline">\(C\)</span>是实常数</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/math/">math</a>
+                    
+                      <a class="hover-with-bg" href="/categories/math/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">复变函数</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">复变函数</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/07/machine%20learning/linearmodel/linearmodel/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">线性模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/07/machine%20learning/EMAlgorithm/EMAlgorithm/">
+                        <span class="hidden-mobile">EM算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

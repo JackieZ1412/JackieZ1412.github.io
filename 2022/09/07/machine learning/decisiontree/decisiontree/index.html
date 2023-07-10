@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="JackieZ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="决策树模型和学习 定义：分类决策树模型是一种描述对实例进行分类的树形结构。决策树由节点和有向边组成。结点有两种类型：内部结点和叶结点。内部结点表示一个特征或属性，叶结点表示一个类 决策树的if-then规则 可以将决策树看成一个if-then规则的集合。将决策树转换成if-then规则的规则如下：由决策树的根结点到叶结点的每一条路径构建一条规则；路径上内部结点的特征对应规则的条件，而叶结点的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="决策树">
+<meta property="og:url" content="http://example.com/2022/09/07/machine%20learning/decisiontree/decisiontree/index.html">
+<meta property="og:site_name" content="JackieZ&#39;s Blog">
+<meta property="og:description" content="决策树模型和学习 定义：分类决策树模型是一种描述对实例进行分类的树形结构。决策树由节点和有向边组成。结点有两种类型：内部结点和叶结点。内部结点表示一个特征或属性，叶结点表示一个类 决策树的if-then规则 可以将决策树看成一个if-then规则的集合。将决策树转换成if-then规则的规则如下：由决策树的根结点到叶结点的每一条路径构建一条规则；路径上内部结点的特征对应规则的条件，而叶结点的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-07T12:24:59.000Z">
+<meta property="article:modified_time" content="2022-09-08T12:20:36.000Z">
+<meta property="article:author" content="JackieZ">
+<meta property="article:tag" content="machine learning">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>决策树 - JackieZ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="决策树">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-09-07 20:24" pubdate>
+        2022年9月7日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">决策树</h1>
+            
+            <div class="markdown-body">
+              <h2 id="决策树模型和学习">决策树模型和学习</h2>
+<p><strong>定义：</strong>分类决策树模型是一种描述对实例进行分类的树形结构。决策树由节点和有向边组成。结点有两种类型：内部结点和叶结点。内部结点表示一个特征或属性，叶结点表示一个类</p>
+<h3 id="决策树的if-then规则">决策树的if-then规则</h3>
+<p>可以将决策树看成一个if-then规则的集合。将决策树转换成if-then规则的规则如下：由决策树的根结点到叶结点的每一条路径构建一条规则；路径上内部结点的特征对应规则的条件，而叶结点的类对应规则的结论。决策树的路径或其对应的if-then规则集合具有一个重要的性质：<strong>互斥而且完备</strong>。这就是说，每一个实例都被一条路径或一条规则所覆盖，而且只被一条路径或一条规则所覆盖。这里所谓的覆盖指的是实例的特征与路径上的特征一致或实例满足规则的条件。</p>
+<h3 id="决策树与条件概率分布">决策树与条件概率分布</h3>
+<p>决策树表示给定特征条件下类的条件概率分布。其意思是，我们通过设定一些关于条件的约束，这些关于条件的约束将特征空间划分为互不相交的单元或区域，并在每一个单元定义一个类的概率分布就构成了一个条件概率分布。决策树下的一条路径就对应了一个单元。决策树所表示的条件概率分布由各个单元给定条件下类的条件概率分布组成。</p>
+<p>举例说明：假设X为表示特征的随机变量，Y为表示类的随机变量，那么这个条件概率分布可以表示为<span class="math inline">\(P(X|Y)\)</span>。X取值于给定划分下单元的集合，Y取值于类的集合。各叶结点(单元)上的条件概率往往偏向于某一个类。决策树分类时将该结点的实例强行分到条件概率大的那一类</p>
+<h3 id="决策树学习">决策树学习</h3>
+<p>决策树学习的目标是根据给定的训练数据集构建一个决策树模型，使它能够对实例进行正确的分类</p>
+<p>决策树学习的本质是从训练数据集中归纳出一组分类规则。与训练数据集不相矛盾的决策树可能有多个，也可能一个都没有。我们需要的是一个与训练数据矛盾较小的决策树，同时拥有不错的泛化能力。从另一个角度看，决策树学习是由训练数据集估计条件概率模型。基于特征空间划分的类的条件概率模型有无穷多个。我们选择的条件概率模型应该不仅对训练数据有很好的拟合，而且对未知数据有很好的预测</p>
+<p>决策树学习用损失函数表示这一目标；通常用正则化的极大似然函数来作为损失函数，决策树学习的策略是以损失函数为目标函数的最小化</p>
+<p>决策树的学习算法通常是递归地选择最优特征，并根据该特征对训练数据进行划分；这样构造出的决策树对训练数据有着很好的分类能力，但是可能会出现过拟合现象，所以我们也需要对已生成的树进行剪枝，将树变得更简单，从而具有更好的泛化能力。具体来说就是去掉过分细分的叶结点，使其回退到父结点甚至更高的结点，然后将父结点或更高的结点改为新的叶结点</p>
+<h2 id="特征选择">特征选择</h2>
+<h3 id="信息增益">信息增益</h3>
+<p><strong>熵：</strong>熵是表示随机变量不确定性的度量。设X是一个取值有限个值的离散随机变量，其概率分布为：
+<span class="math display">\[
+P(X = x_i) = p_i
+\]</span> 则随机变量X的熵定义为： <span class="math display">\[
+H(X) = -\sum_{i = 1}^{n}\;p_i\,log\,p_i
+\]</span>
+通常上式中的对数以2或e为底，这时熵的单位分别称作比特或纳特。由定义可知，熵只依赖于X的分布，与X的取值无关</p>
+<p>熵的大小和随机变量的不确定性成正比，从定义可以验证： <span class="math display">\[
+0 \leq H(p) \leq log\,n
+\]</span> 设有随机变量(X,Y)，其联合概率分布为 <span class="math display">\[
+P(X = x_i, Y = y_i) = p_{ij}
+\]</span> 条件熵<span class="math inline">\(H(Y|X)\)</span>表示在已知随机变量X的条件下随机变量Y的不确定性。随机变量X给定的条件下随机变量Y的条件熵<span class="math inline">\(H(Y|X)\)</span>定义为X给定条件下Y的条件概率分布的熵对X的数学期望：
+<span class="math display">\[
+H(Y|X) = \sum_{i = 1}^{n}p_iH(Y|X = x_i)
+\]</span> 这里的<span class="math inline">\(p_i = P(X =
+x_i)\)</span></p>
+<p>当熵和条件熵中的概率由数据估计(特别是极大似然估计)得到时，所对应的熵与条件熵分别称为经验熵和经验条件熵。此时如果有0概率，令<span class="math inline">\(0log0 = 0\)</span></p>
+<p><strong>定义(信息增益)：</strong>特征A对训练数据集D的信息增益<span class="math inline">\(g(D,A)\)</span>定义为集合D的经验熵<span class="math inline">\(H(D)\)</span>与特征A给定条件下D的经验条件熵<span class="math inline">\(H(D|A)\)</span>之差，即： <span class="math display">\[
+g(D,A) = H(D) - H(D|A)
+\]</span> 一般地，熵<span class="math inline">\(H(Y)\)</span>与条件熵<span class="math inline">\(H(Y|X)\)</span>之差称为互信息。决策树学习中的信息增益等价于训练数据集中类与特征的互信息。决策树学习应用信息准则选择特征，这是因为信息增益表示了给定特征条件后相较于原来数据集不确定性减少的程度。根据信息增益准则的特征选择方法是：对训练数据集(或子集)D，计算其每个特征的信息增益，并比较大小，选择信息增益最大的特征。</p>
+<p><strong>算法(信息增益的算法)：</strong></p>
+<p>输入：训练数据集D和特征A</p>
+<p>输出：特征A对训练数据集D的信息增益<span class="math inline">\(g(D,A)\)</span></p>
+<ol type="1">
+<li>计算数据集D的经验熵<span class="math inline">\(H(D)\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+H(D) = -\sum_{k = 1}^{K}\frac{|C_k|}{|D|}log_2\;\frac{|C_k|}{|D|}
+\]</span></p>
+<ol start="2" type="1">
+<li>计算特征A对数据集D的经验条件熵<span class="math inline">\(H(D|A)\)</span>：</li>
+</ol>
+<p><span class="math display">\[
+H(D|A) = \sum_{i = 1}^{n}\frac{|D_i|}{D}H(D_i) = -\sum_{i =
+1}^{n}\frac{|D_i|}{|D|}\sum_{k =
+1}^{K}\frac{|D_{ik}|}{|D_i|}log_2\;\frac{|D_{ik|}}{|D_i|}
+\]</span></p>
+<ol start="3" type="1">
+<li>计算信息增益<span class="math inline">\(g(D,A)\)</span>：</li>
+</ol>
+<p><span class="math display">\[
+g(D,A) = H(D) - H(D|A)
+\]</span></p>
+<p><strong>信息增益比：</strong>特征A对训练数据集D的信息增益比<span class="math inline">\(g_R(D,A)\)</span>定义为其信息增益<span class="math inline">\(g(D,A)\)</span>与训练数据集D关于特征A的值的熵<span class="math inline">\(H_A(D)\)</span>之比： <span class="math display">\[
+g_R(D,A) = \frac{g(D,A)}{H_A(D)}
+\]</span> 其中，<span class="math inline">\(H_A(D) = -\sum_{i =
+1}^{n}\frac{|D_i|}{|D|}log_2\,\frac{|D_i|}{|D|}\)</span>，n是特征A取值的个数</p>
+<h2 id="决策树的生成">决策树的生成</h2>
+<h3 id="id3算法">ID3算法</h3>
+<p>ID3算法核心是在决策树各个结点上应用信息增益准则选择特征，递归地构建决策树。具体方法是：从根结点开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归地调用以上方法构建决策树；直到所有特征的信息增益均很小或没用特征可以选择为止，最后得到一颗决策树。ID3相当于用极大似然法进行概率模型的选择。</p>
+<p><strong>ID3算法：</strong></p>
+<p>输入：训练数据集D，特征集A和阈值<span class="math inline">\(\epsilon\)</span></p>
+<p>输出：决策树T</p>
+<ol type="1">
+<li>若D中所有实例属于同一类<span class="math inline">\(C_k\)</span>，则<span class="math inline">\(T\)</span>为单结点树，并将类<span class="math inline">\(C_k\)</span>作为该结点的类标记，返回<span class="math inline">\(T\)</span></li>
+<li>若<span class="math inline">\(A = \emptyset\)</span>，则<span class="math inline">\(T\)</span>为单结点树，并将类<span class="math inline">\(C_k\)</span>作为该结点的类标记，返回<span class="math inline">\(T\)</span></li>
+<li>否则，按信息增益算法计算A中各特征对D的信息增益，选择信息增益最大的特征<span class="math inline">\(A_g\)</span></li>
+<li>如果<span class="math inline">\(A_g\)</span>的信息增益小于阈值<span class="math inline">\(\epsilon\)</span>，则置<span class="math inline">\(T\)</span>为单结点树，并将D中实例最大的类<span class="math inline">\(C_k\)</span>作为该结点的类标记，返回<span class="math inline">\(T\)</span></li>
+<li>否则，对<span class="math inline">\(A_g\)</span>的每一可能值<span class="math inline">\(a_i\)</span>将D分割为若干非空子集<span class="math inline">\(D_i\)</span>，将<span class="math inline">\(D_i\)</span>中实例数最大的类作为标记，构建子结点，由结点及其子结点构成树<span class="math inline">\(T\)</span>，返回<span class="math inline">\(T\)</span></li>
+<li>对第i个子结点，以<span class="math inline">\(D_i\)</span>为训练集，以<span class="math inline">\(A-\{A_g\}\)</span>为特征集，递归地调用前五步，得到子树<span class="math inline">\(T_i\)</span>，返回<span class="math inline">\(T_i\)</span></li>
+</ol>
+<h3 id="c4.5生成算法">C4.5生成算法</h3>
+<p><strong>C4.5 的生成算法</strong>：</p>
+<p>输入：训练数据集D，特征集A和阈值<span class="math inline">\(\epsilon\)</span></p>
+<p>输出：决策树T</p>
+<ol type="1">
+<li>若D中所有实例属于同一类<span class="math inline">\(C_k\)</span>，则<span class="math inline">\(T\)</span>为单结点树，并将类<span class="math inline">\(C_k\)</span>作为该结点的类标记，返回<span class="math inline">\(T\)</span></li>
+<li>若<span class="math inline">\(A = \emptyset\)</span>，则<span class="math inline">\(T\)</span>为单结点树，并将类<span class="math inline">\(C_k\)</span>作为该结点的类标记，返回<span class="math inline">\(T\)</span></li>
+<li>否则，按信息增益算法计算A中各特征对D的信息增益比，选择信息增益最大的特征<span class="math inline">\(A_g\)</span></li>
+<li>如果<span class="math inline">\(A_g\)</span>的信息增益小于阈值<span class="math inline">\(\epsilon\)</span>，则置<span class="math inline">\(T\)</span>为单结点树，并将D中实例最大的类<span class="math inline">\(C_k\)</span>作为该结点的类标记，返回<span class="math inline">\(T\)</span></li>
+<li>否则，对<span class="math inline">\(A_g\)</span>的每一可能值<span class="math inline">\(a_i\)</span>，依<span class="math inline">\(A_g =
+a_i\)</span>将D分割为若干非空子集<span class="math inline">\(D_i\)</span>，将<span class="math inline">\(D_i\)</span>中实例数最大的类作为标记，构建子结点，由结点及其子结点构成的树<span class="math inline">\(T\)</span>，返回<span class="math inline">\(T\)</span></li>
+<li>对结点i，以<span class="math inline">\(D_i\)</span>为训练集，以<span class="math inline">\(A-\{A_g\}\)</span>为特征集，递归地调用前五步，得到子树<span class="math inline">\(T_i\)</span>，返回<span class="math inline">\(T_i\)</span></li>
+</ol>
+<h2 id="决策树的剪枝">决策树的剪枝</h2>
+<p>决策树生成算法递归地产生决策树，直到不能继续为止。这样生成的树汪汪队训练数据的分类很准确，但对未知测试数据的分类却没有那么准确，即出现过拟合现象。过拟合的原因是因为在构造决策树时过多的考虑如何提高对训练数据的正确分类，从而构造出过于复杂的决策树。解决方案是考虑决策树的复杂度，对已生成的决策树进行简化。</p>
+<p>在决策树学习中将已生成的树进行简化的过程称为剪枝。这里介绍一种简单但决策树学习的剪枝算法。</p>
+<p>决策树的剪枝往往通过极小化决策树整体的损失函数来实现。设树<span class="math inline">\(T\)</span>的叶结点个数为<span class="math inline">\(|T|\)</span>，t是树T的叶结点，该叶结点有<span class="math inline">\(N_t\)</span>个样本点，其中k类的样本点<span class="math inline">\(N_{tk}\)</span>个，<span class="math inline">\(H_t(T)\)</span>为叶结点t上的经验熵，<span class="math inline">\(\alpha \geq
+0\)</span>为参数，则决策树学习的损失函数可以定义为： <span class="math display">\[
+C_{\alpha}(T) = \sum_{t = 1}^{|T|}N_tH_t(T) + \alpha|T|
+\]</span> 其中经验熵为： <span class="math display">\[
+H_t(T) = -\sum_{k}\frac{N_{tk}}{N_t}\,log\,\frac{N_{tk}}{N_t}
+\]</span> 在损失函数中，原式右端第一项可改写为： <span class="math display">\[
+C(T) = \sum_{t = 1}^{|T|}N_tH_t(T) = -\sum_{t = 1}^{|T|}\sum_{k =
+1}^{K}N_{tk}\,log\,\frac{N_{tk}}{N_t}
+\]</span> 这时有： <span class="math display">\[
+C_{\alpha}(T) = C(T) + \alpha|T|
+\]</span> 上式中<span class="math inline">\(C(T)\)</span>表示模型对训练数据的预测误差(拟合程度)，<span class="math inline">\(|T|\)</span>表示模型复杂度，参数<span class="math inline">\(\alpha\)</span>控制两者之间的影响，参数大小与模型的复杂度成反比。</p>
+<p>剪枝指当参数<span class="math inline">\(\alpha\)</span>确定时，选择损失函数最好的模型，即损失函数最小的子树。可以看出，决策树生成只考虑了通过提高信息增益对训练数据进行更好的拟合，而决策树剪枝通过优化损失函数还考虑了减小模型复杂度。决策树生成学习局部的模型，决策树剪枝学习整体的模型。</p>
+<p><strong>决策树剪枝算法：</strong></p>
+<p>输入：生成算法产生的整个树T,参数<span class="math inline">\(\alpha\)</span></p>
+<p>输出：修剪后的子树<span class="math inline">\(T_\alpha\)</span></p>
+<ol type="1">
+<li><p>计算每个结点的经验熵</p></li>
+<li><p>递归地从树的叶结点向上回缩</p>
+<p>假设一组叶结点回缩到其父结点之前与之后的整体树分别为<span class="math inline">\(T_B\)</span>和<span class="math inline">\(T_A\)</span>，其对应的损失函数的值分别为<span class="math inline">\(C_\alpha(T_B)\)</span>和<span class="math inline">\(C_\alpha(T_A)\)</span>，若： <span class="math display">\[
+C_\alpha(T_A) \leq C_\alpha(T_B)
+\]</span></p></li>
+</ol>
+<p>则进行剪枝，即将父结点变为新的叶结点</p>
+<ol start="3" type="1">
+<li>返回步骤2，直到不能继续为止，得到损失函数最小的子树<span class="math inline">\(T_\alpha\)</span></li>
+</ol>
+<p><strong>注意，剪枝时只需要考虑两个树的损失函数的差，其计算可以在局部进行。所以树的剪枝算法可由动态规划实现</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/">machine learning</a>
+                    
+                      <a class="hover-with-bg" href="/categories/machine-learning/notes/">notes</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/12/machine%20learning/SVD/SVD/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">奇异值分解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/07/machine%20learning/linearmodel/linearmodel/">
+                        <span class="hidden-mobile">线性模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
