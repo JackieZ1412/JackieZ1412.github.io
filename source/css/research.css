@@ -96,12 +96,13 @@ main {
 
 .portrait {
   display: block;
-  width: 160px;
-  height: 160px;
+  width: 176px;
+  height: 210px;
   margin: 0 auto 22px;
   border: 1px solid var(--line);
   border-radius: 8px;
   object-fit: cover;
+  object-position: center 18%;
   background: var(--soft);
 }
 
@@ -209,13 +210,15 @@ h3 {
   list-style: none;
 }
 
-.news-list li {
+.news-list li,
+.timeline-item {
   display: grid;
   grid-template-columns: 78px minmax(0, 1fr);
   gap: 14px;
 }
 
 .news-list time,
+.timeline-item time,
 .pub-year {
   color: var(--accent);
   font-family: "Source Code Pro", monospace;
@@ -224,6 +227,11 @@ h3 {
 
 .news-list span {
   color: var(--muted);
+}
+
+.timeline-list {
+  display: grid;
+  gap: 18px;
 }
 
 .interest-grid,
@@ -330,6 +338,7 @@ code {
   }
 
   .news-list li,
+  .timeline-item,
   .publication-item {
     grid-template-columns: 1fr;
     gap: 6px;

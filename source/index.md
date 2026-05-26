@@ -1,4 +1,4 @@
 ---
-title: JackieZ
+title:
 layout: index
 ---

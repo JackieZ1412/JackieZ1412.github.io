@@ -1,15 +1,17 @@
 <div class="homepage-grid">
   <aside class="profile-card">
-    <img class="portrait" src="/blog/img/avatar.png" alt="JackieZ portrait">
-    <h1>JackieZ</h1>
-    <p class="secondary-name">JackieZ1412</p>
+    <img class="portrait" src="/images/profile.jpg" alt="Yuang Zhang portrait">
+    <h1>Yuang Zhang</h1>
+    <p class="secondary-name">张宇昂</p>
     <div class="position-list">
-      <p>Student / Researcher</p>
+      <p>Incoming Ph.D. Student</p>
+      <p>KDELab @ USTC</p>
       <p>Computer Science</p>
     </div>
     <div class="profile-links">
-      <a href="mailto:JackieZ1412@github.com">Email</a>
+      <a href="mailto:zya1412@mail.ustc.edu.cn">Email</a>
       <a href="https://github.com/JackieZ1412">GitHub</a>
+      <a href="/files/YuangZhang_CV.pdf">CV</a>
       <a href="/blog/">Blog</a>
     </div>
   </aside>
@@ -17,15 +19,48 @@
   <section class="main-column">
     <article class="panel profile-summary">
       <div class="panel-header">
-        <p class="eyebrow">Personal Academic Homepage</p>
-        <h2>About</h2>
+      <p class="eyebrow">Personal Academic Homepage</p>
+      <h2>About</h2>
       </div>
       <p>
-        I am building this page as a research-oriented home for academic interests, selected projects, publications, notes, and technical writing.
+        I am an incoming Ph.D. student in Computer Science and a member of KDELab at the University of Science and Technology of China.
       </p>
       <p>
-        The previous Hexo blog is preserved under <a href="/blog/">/blog/</a>, while this root page becomes the central research profile.
+        My current research interests include cache optimization, KV cache compression, vector search acceleration, database kernel systems, and efficient inference for large language models.
       </p>
+      <p>
+        I keep technical notes and older project write-ups in the <a href="/blog/">blog archive</a>.
+      </p>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <p class="eyebrow">Education</p>
+        <h2>Education</h2>
+      </div>
+      <div class="timeline-list">
+        <div class="timeline-item">
+          <time>2026.09 -</time>
+          <div>
+            <h3>Ph.D. Student in Computer Science</h3>
+            <p>University of Science and Technology of China. Incoming doctoral student.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <time>2024.09 -</time>
+          <div>
+            <h3>M.S. in Computer Application Technology</h3>
+            <p>University of Science and Technology of China. GPA: 3.90/4.30.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <time>2020.09 - 2024.06</time>
+          <div>
+            <h3>B.S. in Computer Science and Technology</h3>
+            <p>University of Science and Technology of China. GPA: 3.55/4.30.</p>
+          </div>
+        </div>
+      </div>
     </article>
 
     <article class="panel news-panel">
@@ -33,8 +68,9 @@
         <h2>News</h2>
       </div>
       <ul class="news-list">
-        <li><time>2026.05</time><span>Started redesigning this site as an academic homepage with the blog archived at <a href="/blog/">/blog/</a>.</span></li>
-        <li><time>2023.07</time><span>Published technical notes and project write-ups in the original Hexo blog.</span></li>
+        <li><time>2026.09</time><span>I will start my Ph.D. study in Computer Science.</span></li>
+        <li><time>2026</time><span>Our paper <em>Selectively Learned Cache Eviction Algorithm</em> was published as a full paper at DASFAA 2026.</span></li>
+        <li><time>2026.05</time><span>Redesigned this site as an academic homepage with the blog archived at <a href="/blog/">/blog/</a>.</span></li>
       </ul>
     </article>
 
@@ -45,16 +81,16 @@
       </div>
       <div class="interest-grid">
         <div>
-          <h3>Machine Learning</h3>
-          <p>Learning algorithms, probabilistic models, and foundations for intelligent systems.</p>
+          <h3>Cache Optimization</h3>
+          <p>Learning-based and adaptive cache replacement for databases and storage systems.</p>
         </div>
         <div>
-          <h3>Computer Systems</h3>
-          <p>Systems, databases, operating systems, and performance-oriented engineering.</p>
+          <h3>LLM Inference</h3>
+          <p>KV cache reuse, compression, and multi-level memory optimization for efficient long-context inference.</p>
         </div>
         <div>
-          <h3>Mathematics</h3>
-          <p>Mathematical notes and tools that support research in CS and ML.</p>
+          <h3>Vector Search</h3>
+          <p>Approximate nearest neighbor search, vector index structures, and systems-level acceleration.</p>
         </div>
       </div>
     </article>
@@ -62,14 +98,15 @@
     <article class="panel" id="publications">
       <div class="panel-header">
         <p class="eyebrow">Selected Publications</p>
-        <h2>Work in Progress</h2>
+        <h2>Publications</h2>
       </div>
       <div class="publication-list">
-        <div class="publication-item placeholder">
-          <div class="pub-year">TBD</div>
+        <div class="publication-item">
+          <div class="pub-year">2026</div>
           <div>
-            <h3>Publication entries will live here</h3>
-            <p>Add paper title, authors, venue, links, code, and bibtex when ready.</p>
+            <h3>Selectively Learned Cache Eviction Algorithm</h3>
+            <p><strong>Yuang Zhang</strong>. DASFAA 2026, Full Paper. CCF-B conference.</p>
+            <p>Proposes SL-Cache, a three-layer cache architecture with dual-metric hotness measurement and a precomputed utility strategy to reduce model inference overhead.</p>
           </div>
         </div>
       </div>
@@ -81,17 +118,17 @@
         <h2>Projects & Notes</h2>
       </div>
       <div class="project-grid">
-        <a class="project-card" href="/blog/categories/machine-learning/">
-          <span>Machine Learning Notes</span>
-          <small>CS229, models, PCA, SVD, EM, clustering</small>
+        <a class="project-card" href="/blog/">
+          <span>HiKV</span>
+          <small>KV cache reuse optimization for RAG long-context inference in vLLM.</small>
         </a>
-        <a class="project-card" href="/blog/categories/计算机基础/CSAPP/">
-          <span>Systems Notes</span>
-          <small>CSAPP labs and systems write-ups</small>
+        <a class="project-card" href="/blog/">
+          <span>iCache</span>
+          <small>Adaptive cache replacement in openGauss, supported by Huawei-CCF Populus Euphratica Fund.</small>
         </a>
-        <a class="project-card" href="/blog/categories/math/">
-          <span>Mathematics Notes</span>
-          <small>Number theory, algebra, complex analysis</small>
+        <a class="project-card" href="/blog/categories/计算机基础/">
+          <span>C-Minus-F Compiler</span>
+          <small>A compiler frontend and backend implementation with IR generation and GVN optimization.</small>
         </a>
       </div>
     </article>
