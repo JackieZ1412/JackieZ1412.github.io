@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<%= config.description %>">
+  <title><%= page.title ? page.title + ' | ' : '' %><%= config.title %></title>
+  <link rel="icon" href="/blog/img/favicon.png">
+  <link rel="stylesheet" href="/css/research.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">JackieZ</a>
+    <nav class="nav">
+      <a href="/">Research</a>
+      <a href="/blog/">Blog</a>
+      <a href="https://github.com/JackieZ1412">GitHub</a>
+    </nav>
+  </header>
+  <main>
+    <%- body %>
+  </main>
+  <footer class="site-footer">
+    <span>© <%= new Date().getFullYear() %> JackieZ</span>
+  </footer>
+</body>
+</html>

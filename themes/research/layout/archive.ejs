@@ -1,0 +1,6 @@
+<section class="content">
+  <h1>Archive</h1>
+  <% site.posts.sort('date', -1).forEach(function(post) { %>
+    <p><a href="<%- url_for(post.path) %>"><%= post.title %></a></p>
+  <% }) %>
+</section>

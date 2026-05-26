@@ -1,0 +1,29 @@
+{
+  "name": "jackiez1412-hexo-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hexo source workflow for JackieZ1412.github.io.",
+  "hexo": {
+    "version": "6.3.0"
+  },
+  "scripts": {
+    "dev": "hexo server",
+    "server": "hexo server",
+    "clean": "hexo clean",
+    "build": "hexo clean && hexo generate",
+    "generate": "hexo generate",
+    "deploy": "hexo clean && hexo deploy",
+    "status": "git status --short --branch"
+  },
+  "dependencies": {
+    "hexo": "^6.1.0",
+    "hexo-deployer-git": "^4.0.0",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-index": "^3.0.0",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-marked": "^6.0.0",
+    "hexo-server": "^3.0.0"
+  }
+}
