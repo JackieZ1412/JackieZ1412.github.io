@@ -1,26 +1,99 @@
-<section class="hero">
-  <p class="eyebrow">Personal Research Homepage</p>
-  <h1>JackieZ</h1>
-  <p class="summary">
-    Research notes, technical writing, and project work in computer science, machine learning, systems, and mathematics.
-  </p>
-  <div class="actions">
-    <a class="button primary" href="/blog/">Read the blog</a>
-    <a class="button" href="https://github.com/JackieZ1412">GitHub</a>
-  </div>
-</section>
+<div class="homepage-grid">
+  <aside class="profile-card">
+    <img class="portrait" src="/blog/img/avatar.png" alt="JackieZ portrait">
+    <h1>JackieZ</h1>
+    <p class="secondary-name">JackieZ1412</p>
+    <div class="position-list">
+      <p>Student / Researcher</p>
+      <p>Computer Science</p>
+    </div>
+    <div class="profile-links">
+      <a href="mailto:JackieZ1412@github.com">Email</a>
+      <a href="https://github.com/JackieZ1412">GitHub</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </aside>
 
-<section class="section-grid">
-  <article>
-    <h2>Research</h2>
-    <p>This area is ready for publications, projects, research interests, and academic profile details.</p>
-  </article>
-  <article>
-    <h2>Blog Archive</h2>
-    <p>The previous Hexo blog is preserved under <a href="/blog/">/blog/</a> while the homepage evolves.</p>
-  </article>
-  <article>
-    <h2>Writing</h2>
-    <p>New Markdown posts can be added under <code>source/_posts/</code> and generated through Hexo.</p>
-  </article>
-</section>
+  <section class="main-column">
+    <article class="panel profile-summary">
+      <div class="panel-header">
+        <p class="eyebrow">Personal Academic Homepage</p>
+        <h2>About</h2>
+      </div>
+      <p>
+        I am building this page as a research-oriented home for academic interests, selected projects, publications, notes, and technical writing.
+      </p>
+      <p>
+        The previous Hexo blog is preserved under <a href="/blog/">/blog/</a>, while this root page becomes the central research profile.
+      </p>
+    </article>
+
+    <article class="panel news-panel">
+      <div class="panel-header inline">
+        <h2>News</h2>
+      </div>
+      <ul class="news-list">
+        <li><time>2026.05</time><span>Started redesigning this site as an academic homepage with the blog archived at <a href="/blog/">/blog/</a>.</span></li>
+        <li><time>2023.07</time><span>Published technical notes and project write-ups in the original Hexo blog.</span></li>
+      </ul>
+    </article>
+
+    <article class="panel" id="research">
+      <div class="panel-header">
+        <p class="eyebrow">Research Interests</p>
+        <h2>Areas</h2>
+      </div>
+      <div class="interest-grid">
+        <div>
+          <h3>Machine Learning</h3>
+          <p>Learning algorithms, probabilistic models, and foundations for intelligent systems.</p>
+        </div>
+        <div>
+          <h3>Computer Systems</h3>
+          <p>Systems, databases, operating systems, and performance-oriented engineering.</p>
+        </div>
+        <div>
+          <h3>Mathematics</h3>
+          <p>Mathematical notes and tools that support research in CS and ML.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel" id="publications">
+      <div class="panel-header">
+        <p class="eyebrow">Selected Publications</p>
+        <h2>Work in Progress</h2>
+      </div>
+      <div class="publication-list">
+        <div class="publication-item placeholder">
+          <div class="pub-year">TBD</div>
+          <div>
+            <h3>Publication entries will live here</h3>
+            <p>Add paper title, authors, venue, links, code, and bibtex when ready.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel" id="projects">
+      <div class="panel-header">
+        <p class="eyebrow">Selected Projects</p>
+        <h2>Projects & Notes</h2>
+      </div>
+      <div class="project-grid">
+        <a class="project-card" href="/blog/categories/machine-learning/">
+          <span>Machine Learning Notes</span>
+          <small>CS229, models, PCA, SVD, EM, clustering</small>
+        </a>
+        <a class="project-card" href="/blog/categories/计算机基础/CSAPP/">
+          <span>Systems Notes</span>
+          <small>CSAPP labs and systems write-ups</small>
+        </a>
+        <a class="project-card" href="/blog/categories/math/">
+          <span>Mathematics Notes</span>
+          <small>Number theory, algebra, complex analysis</small>
+        </a>
+      </div>
+    </article>
+  </section>
+</div>
