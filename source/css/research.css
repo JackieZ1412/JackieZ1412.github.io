@@ -68,7 +68,7 @@ main {
 
 .nav a:hover,
 .profile-links a:hover,
-.project-card:hover {
+.panel-link:hover {
   color: var(--accent-strong);
 }
 
@@ -196,10 +196,20 @@ h3 {
   margin-bottom: 18px;
 }
 
-.panel-header.inline {
+.panel-header.inline,
+.panel-header.with-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+}
+
+.panel-link {
+  color: var(--accent);
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .news-list {
@@ -235,14 +245,12 @@ h3 {
 }
 
 .interest-grid,
-.project-grid {
+.publication-page-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
 .interest-grid > div,
-.project-card,
 .publication-item {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -267,23 +275,6 @@ h3 {
   grid-template-columns: 64px minmax(0, 1fr);
   gap: 18px;
   padding: 18px;
-}
-
-.project-card {
-  display: grid;
-  gap: 6px;
-  padding: 16px;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.project-card span {
-  font-weight: 700;
-}
-
-.project-card small {
-  color: var(--muted);
-  font-size: 14px;
 }
 
 .content {
@@ -332,8 +323,12 @@ code {
     padding: 22px;
   }
 
-  .interest-grid,
-  .project-grid {
+  .panel-header.with-link {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .interest-grid {
     grid-template-columns: 1fr;
   }
 
