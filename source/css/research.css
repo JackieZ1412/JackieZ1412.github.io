@@ -270,11 +270,20 @@ h3 {
   gap: 12px;
 }
 
+.section-subtitle {
+  margin: 34px 0 18px;
+}
+
 .publication-item {
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr);
   gap: 18px;
   padding: 18px;
+}
+
+.publication-note {
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .content {
