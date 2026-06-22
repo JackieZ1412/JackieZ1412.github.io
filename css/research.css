@@ -286,6 +286,14 @@ h3 {
   font-size: 14px;
 }
 
+.publication-line-item {
+  display: block;
+}
+
+.publication-line-item p {
+  margin: 0;
+}
+
 .content {
   max-width: 760px;
   padding: 72px 0 96px;
