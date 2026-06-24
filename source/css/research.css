@@ -355,6 +355,11 @@ h3 {
   font-size: 14px;
 }
 
+.pub-venue {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .publication-bullets {
   display: grid;
   gap: 10px;
@@ -367,6 +372,23 @@ h3 {
 
 .publication-bullets li::marker {
   color: var(--accent);
+}
+
+.publication-bullets li > span {
+  display: block;
+}
+
+.publication-bullets li > span + span {
+  margin-top: 2px;
+}
+
+.pub-title {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.pub-authors {
+  color: var(--muted);
 }
 
 .content {
